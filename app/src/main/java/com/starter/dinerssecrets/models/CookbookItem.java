@@ -5,5 +5,14 @@ package com.starter.dinerssecrets.models;
  */
 public class CookbookItem {
 
+    public String cooking_id;
+
+    public String name;
+
+    public String intro;
+
+    public String image;
+
+    public String url;
 
 }
