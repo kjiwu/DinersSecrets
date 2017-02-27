@@ -1,22 +1,16 @@
 package com.starter.dinerssecrets.activities;
 
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.view.WindowManager;
 
 import com.starter.dinerssecrets.R;
-import com.starter.dinerssecrets.databases.STCookbookDBHelper;
 import com.starter.dinerssecrets.databases.STDBHelper;
-import com.starter.dinerssecrets.managers.ImageDownloadManager;
-import com.starter.dinerssecrets.managers.NetwrokManager;
-import com.starter.dinerssecrets.models.CookbookItem;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
 
 public class STSplashActivity extends STBaseActivity {
 
@@ -24,5 +18,24 @@ public class STSplashActivity extends STBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st_splash);
+
+        try {
+            STDBHelper.initializeLocalDatabase(this);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Observable.empty().delay(4, TimeUnit.SECONDS)
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Intent intent = new Intent(STSplashActivity.this, STMainActivity.class);
+                        startActivity(intent);
+                        STSplashActivity.this.finish();
+                    }
+                })
+        .subscribe();
     }
+
 }

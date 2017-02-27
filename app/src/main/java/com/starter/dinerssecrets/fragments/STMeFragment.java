@@ -12,12 +12,12 @@ import com.starter.dinerssecrets.R;
  * Created by wulei on 2017/2/27.
  */
 
-public class STCookbooksFragment extends STBaseFragment {
+public class STMeFragment extends STBaseFragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_st_cookbooks, null);
+        View view = inflater.inflate(R.layout.fragment_st_me, null);
         return view;
     }
 }

@@ -28,14 +28,6 @@ public class STBaseActivity extends AppCompatActivity implements NetworkChangedR
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-            STDBHelper.initializeLocalDatabase(this);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
