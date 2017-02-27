@@ -23,12 +23,12 @@
         <activity android:name=".activities.STMainActivity"/>
         <activity android:name=".activities.STSearchActivity"/>
 
-
         <receiver android:name=".receivers.NetworkChangedReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
