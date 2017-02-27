@@ -10,6 +10,7 @@ import com.starter.dinerssecrets.databases.STDBHelper;
 
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 
 public class STSplashActivity extends STBaseActivity {
@@ -27,11 +28,12 @@ public class STSplashActivity extends STBaseActivity {
         }
 
         Observable.empty().delay(4, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(new Action() {
                     @Override
                     public void run() throws Exception {
                         Intent intent = new Intent(STSplashActivity.this, STMainActivity.class);
-                        startActivity(intent);
+                        stStartActivity(intent);
                         STSplashActivity.this.finish();
                     }
                 })
