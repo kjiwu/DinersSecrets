@@ -47,9 +47,15 @@ public class STCookbookDetailDBHelper extends STDBHelper {
     public final static String CREATE_STEPS_TABLE = "create table if not exists ST_COOKBOOK_STEPS (" +
             "[id] integer primary key AUTOINCREMENT," +
             "[cooking_id] varchar(100)," +
-            "[step_order] integer," +
+            "[step_order] varchar(10)," +
             "[step_name] varchar(200)," +
             "[step_img] varchar(200)," +
+            ");";
+
+    public final static String CREATE_COMPLETE_PIC_TABLE = "create table if not exists ST_COOKBOOK_COMPLETES (" +
+            "[id] integer primary key AUTOINCREMENT," +
+            "[cooking_id] varchar(100)," +
+            "[img] varchar(10)," +
             ");";
 
     public STCookbookDetailDBHelper(Context context) {
@@ -63,6 +69,7 @@ public class STCookbookDetailDBHelper extends STDBHelper {
             db.execSQL(CREATE_DETAIL_TABLE);
             db.execSQL(CREATE_MATERIALS_TABLE);
             db.execSQL(CREATE_STEPS_TABLE);
+            db.execSQL(CREATE_COMPLETE_PIC_TABLE);
         }
         super.onUpgrade(db, oldVersion, newVersion);
     }

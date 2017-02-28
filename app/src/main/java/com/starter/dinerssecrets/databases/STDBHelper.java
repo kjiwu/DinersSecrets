@@ -10,6 +10,7 @@ import android.util.Log;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.security.PublicKey;
 
 /**
  * Created by wulei on 2017/2/27.
@@ -25,6 +26,7 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String STEPS_TABLE_NAME = "ST_COOKBOOK_STEPS";
     public final static String COOKBOOK_TABLE_NAME = "ST_COOKINGS";
     public final static String COLLECTIONS_TABLE_NAME = "ST_COLLECTIONS";
+    public final static String COMPLETE_PIC_TABLE_NAME = "ST_COOKBOOK_COMPLETES";
 
 
 

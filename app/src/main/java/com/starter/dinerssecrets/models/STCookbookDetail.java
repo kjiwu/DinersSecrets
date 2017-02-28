@@ -15,4 +15,5 @@ public class STCookbookDetail {
     public List<STCookbookMaterial> materials;
     public List<STCookbookStep> steps;
     public List<String> tips;
+    public List<String> complete_pic;
 }

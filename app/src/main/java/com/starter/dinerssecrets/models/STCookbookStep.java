@@ -5,7 +5,7 @@ package com.starter.dinerssecrets.models;
  */
 
 public class STCookbookStep {
-    public int order;
+    public String order;
     public String step;
     public String image;
 }
