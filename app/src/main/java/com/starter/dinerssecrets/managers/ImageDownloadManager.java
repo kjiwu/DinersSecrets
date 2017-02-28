@@ -31,6 +31,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ImageDownloadManager {
 
+    public final static String THUMB_IMAGE_DIR = "/thumbs";
+    public final static String IMAGE_DIR = "/images";
+
+    public final static int IMAGE_TYPE_THUMB = 0;
+    public final static int IMAGE_TYPE_ORIGIN = 1;
+
     private Context mContext;
 
     private boolean mIsCancel = false;
@@ -43,7 +49,7 @@ public class ImageDownloadManager {
         mContext = context;
     }
 
-    private void downloadImageFromUrl(final String imageName, final String url, final ImageView imageView) {
+    private void downloadImageFromUrl(final String imageName, final String url, final String cooking_id, final int type, final ImageView imageView) {
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
             @Override
             public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
@@ -52,12 +58,24 @@ public class ImageDownloadManager {
                 InputStream in = null;
                 try {
                     in = conn.getInputStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(in);
-                    String path = mContext.getFilesDir() + "/" + imageName;
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 3;
+                    String path = mContext.getFilesDir() + THUMB_IMAGE_DIR;
+                    if(type == IMAGE_TYPE_ORIGIN) {
+                        path = mContext.getFilesDir() + IMAGE_DIR + "/" + cooking_id;
+                        options.inSampleSize = 1;
+                    }
+                    File dir = new File(path);
+                    if(!dir.exists()) {
+                        dir.mkdir();
+                    }
+                    Bitmap bitmap = BitmapFactory.decodeStream(in, null, options);
+
+                    path += "/" + imageName;
                     File file = new File(path);
                     if (!file.exists() && null != bitmap) {
                         FileOutputStream out = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, out);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, out);
                         out.flush();
                         out.close();
                     }
@@ -143,10 +161,10 @@ public class ImageDownloadManager {
         return result;
     }
 
-    public void downloadImage(String imageName, String url, ImageView imageView) {
+    public void downloadImage(String imageName, String url, String cooking_id, int type, ImageView imageView) {
         if(!downloadImageFromAssets(imageName, imageView)) {
             if(!downloadImageFromLocal(imageName, imageView)) {
-                downloadImageFromUrl(imageName, url, imageView);
+                downloadImageFromUrl(imageName, url, cooking_id, type, imageView);
             }
         }
     }
