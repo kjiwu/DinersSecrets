@@ -15,17 +15,6 @@ import java.util.List;
 
 public class STCookbookDBHelper extends STDBHelper {
 
-
-    public final static String COOKBOOK_COLUMN_ID = "cooking_id";
-    public final static String COOKBOOK_COLUMN_NAME = "cooking_name";
-    public final static String COOKBOOK_COLUMN_IMAGE_NAME = "cooking_image_name";
-    public final static String COOKBOOK_COLUMN_IMAGE = "cooking_image";
-    public final static String COOKBOOK_COLUMN_URL = "cooking_url";
-    public final static String COOKBOOK_COLUMN_INTRO = "cooking_intro";
-    public final static String COOKBOOK_COLUMN_TYPE = "cooking_type";
-    public final static String COOKBOOK_COLUMN_DIFFICULTY = "cooking_difficulty";
-    public final static String COOKBOOK_COLUMN_MATERIALS = "cooking_materials";
-
     public STCookbookDBHelper(Context context) {
         super(context);
     }
@@ -47,7 +36,10 @@ public class STCookbookDBHelper extends STDBHelper {
                     book.cooking_id = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_ID));
                     book.name = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_NAME));
                     book.image = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_IMAGE));
+                    book.imageName = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_IMAGE_NAME));
                     book.url = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_URL));
+                    book.difficulty = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_DIFFICULTY));
+                    book.intro = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_INTRO));
                     items.add(book);
                 }
             }

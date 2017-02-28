@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">食客秘籍</string>
+
+    <string name="cookbook_item_difficulty_title">烹饪难度:</string>
 </resources>

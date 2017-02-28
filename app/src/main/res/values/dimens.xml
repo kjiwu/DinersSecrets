@@ -1,5 +1,14 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">12dp</dimen>
+    <dimen name="activity_vertical_margin">12dp</dimen>
+
+    <dimen name="default_margin">12dp</dimen>
+
+    <dimen name="cookbook_item_padding">12dp</dimen>
+    <dimen name="cookbook_item_header_height">72dp</dimen>
+    <dimen name="cookbook_item_header_width">128dp</dimen>
+    <dimen name="cookbook_item_title_size">18sp</dimen>
+    <dimen name="cookbook_item_inner_margin">8dp</dimen>
+    <dimen name="cookbook_item_small_margin">4dp</dimen>
 </resources>

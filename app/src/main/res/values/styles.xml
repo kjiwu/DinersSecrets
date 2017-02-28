@@ -18,4 +18,9 @@
         <item name="titleTextColor">@android:color/white</item>
     </style>
 
+    <style name="CookbookItemTitleStyle" parent="Theme.AppCompat.Light">
+        <item name="android:textSize">@dimen/cookbook_item_title_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

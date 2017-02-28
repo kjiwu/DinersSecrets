@@ -2,15 +2,12 @@ package com.starter.dinerssecrets.databases;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.security.PublicKey;
 
 /**
  * Created by wulei on 2017/2/27.
@@ -19,7 +16,7 @@ import java.security.PublicKey;
 public class STDBHelper extends SQLiteOpenHelper {
 
     private final static String ASSETS_DATABASE = "cookbooks.db";
-    public final static String DATABASE_NAME = "cookbooks.db";
+    public final static String DATABASE_NAME = ASSETS_DATABASE;
 
     public final static String DETAIL_TABLE_NAME = "ST_COOKBOOK_DETAIL";
     public final static String MATERIAL_TABLE_NAME = "ST_COOKBOOK_MATERIALS";
@@ -28,7 +25,36 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String COLLECTIONS_TABLE_NAME = "ST_COLLECTIONS";
     public final static String COMPLETE_PIC_TABLE_NAME = "ST_COOKBOOK_COMPLETES";
 
+    public final static String COOKBOOK_COLUMN_ID = "cooking_id";
+    public final static String COOKBOOK_COLUMN_NAME = "cooking_name";
+    public final static String COOKBOOK_COLUMN_IMAGE_NAME = "cooking_img_name";
+    public final static String COOKBOOK_COLUMN_IMAGE = "cooking_image";
+    public final static String COOKBOOK_COLUMN_URL = "cooking_url";
+    public final static String COOKBOOK_COLUMN_INTRO = "cooking_intro";
+    public final static String COOKBOOK_COLUMN_TYPE = "cooking_type";
+    public final static String COOKBOOK_COLUMN_DIFFICULTY = "cooking_difficulty";
+    public final static String COOKBOOK_COLUMN_MATERIALS = "cooking_materials";
 
+    public final static String DETAIL_COLUMN_ID = "cooking_id";
+    public final static String DETAIL_COLUMN_IMAGE = "cooking_img";
+    public final static String DETAIL_COLUMN_TIME = "cooking_time";
+    public final static String DETAIL_COLUMN_TIPS = "cooking_tips";
+
+
+    public final static String MATERIAL_COLUMN_ID = "cooking_id";
+    public final static String MATERIAL_COLUMN_NAME = "material_name";
+    public final static String MATERIAL_COLUMN_COUNT = "material_count";
+    public final static String MATERIAL_COLUMN_TYPE = "material_type";
+
+    public final static String STEP_COLUMN_ID = "cooking_id";
+    public final static String STEP_COLUMN_ORDER = "step_order";
+    public final static String STEP_COLUMN_NAME = "step_name";
+    public final static String STEP_COLUMN_IMG = "step_img";
+
+    public final static String COLLECTION_COLUMN_COOKBOOK_ID = "cooking_id";
+    public final static String COLLECTION_COLUMN_ORDER = "collection_order";
+
+    public final static String COMPLETE_COLUMN_PIC = "img";
 
 
     public final static int DATABASE_VERSION = 2;

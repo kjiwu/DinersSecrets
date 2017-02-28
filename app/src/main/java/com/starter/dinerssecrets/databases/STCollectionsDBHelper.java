@@ -16,10 +16,6 @@ import java.util.List;
 
 public class STCollectionsDBHelper extends STDBHelper {
 
-    private final static String COLLECTION_COLUMN_COOKBOOK_ID = "cooking_id";
-    private final static String COLLECTION_COLUMN_ORDER = "collection_order";
-
-
     private final static String CREATE_COLLECTIONS_TABLE = "CREATE TABLE IF NOT EXISTS [ST_COLLECTIONS](\n" +
             "[collection_order] INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
             "[cooking_id] VARCHAR(100) NOT NULL UNIQUE \n" +

@@ -13,6 +13,10 @@ public class STCookbookItem {
 
     public String image;
 
+    public String imageName;
+
     public String url;
+
+    public String difficulty;
 
 }

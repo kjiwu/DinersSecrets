@@ -4,24 +4,19 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.ScriptGroup;
 import android.widget.ImageView;
 
-import java.io.Externalizable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -102,14 +97,18 @@ public class ImageDownloadManager {
                 });
     }
 
-    private boolean downloadImageFromAssets(String imageName, ImageView imageView) {
+    private boolean downloadImageFromAssets(String imageName, int type, ImageView imageView) {
         boolean result = false;
 
         if(null != mContext) {
             AssetManager manager = mContext.getAssets();
             InputStream in = null;
             try {
-                in = manager.open(imageName);
+                String path = imageName;
+                if(type == IMAGE_TYPE_THUMB) {
+                    path = "thumbs/" + imageName;
+                }
+                in = manager.open(path);
                 if(null != in) {
                     result = true;
                     Bitmap bitmap = BitmapFactory.decodeStream(in);
@@ -136,11 +135,15 @@ public class ImageDownloadManager {
         return result;
     }
 
-    private boolean downloadImageFromLocal(String imageName, ImageView imageView) {
+    private boolean downloadImageFromLocal(String imageName, int type, ImageView imageView) {
         boolean result = false;
         if(null != mContext) {
             try {
                 String path = mContext.getFilesDir() + "/" + imageName;
+                if(type == IMAGE_TYPE_THUMB) {
+                    path = mContext.getFilesDir() + "/thumbs/" + imageName;
+                }
+
                 File file = new File(path);
                 result = file.exists();
                 if(result) {
@@ -162,8 +165,8 @@ public class ImageDownloadManager {
     }
 
     public void downloadImage(String imageName, String url, String cooking_id, int type, ImageView imageView) {
-        if(!downloadImageFromAssets(imageName, imageView)) {
-            if(!downloadImageFromLocal(imageName, imageView)) {
+        if(!downloadImageFromAssets(imageName, type, imageView)) {
+            if(!downloadImageFromLocal(imageName, type, imageView)) {
                 downloadImageFromUrl(imageName, url, cooking_id, type, imageView);
             }
         }

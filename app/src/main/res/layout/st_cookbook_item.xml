@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+    android:background="@drawable/cookbook_item_background">
+
+    <ImageView
+        android:layout_width="@dimen/cookbook_item_header_width"
+        android:layout_height="@dimen/cookbook_item_header_height"
+        android:id="@+id/ci_header"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/cookbook_item_small_margin"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ci_header"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/ci_header"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/cookbook_item_inner_margin"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ci_title"
+            android:text="Title"
+            style="@style/CookbookItemTitleStyle"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/cookbook_item_inner_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cookbook_item_difficulty_title"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ci_difficulty"
+                android:layout_marginLeft="@dimen/cookbook_item_inner_margin"
+                android:text="difficulty"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ci_intro"
+        android:text="difficulty"
+        android:layout_below="@id/ci_header"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/cookbook_item_inner_margin"/>
+
+</RelativeLayout>
