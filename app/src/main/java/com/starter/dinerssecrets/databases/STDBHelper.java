@@ -20,6 +20,15 @@ public class STDBHelper extends SQLiteOpenHelper {
     private final static String ASSETS_DATABASE = "cookbooks.db";
     public final static String DATABASE_NAME = "cookbooks.db";
 
+    public final static String DETAIL_TABLE_NAME = "ST_COOKBOOK_DETAIL";
+    public final static String MATERIAL_TABLE_NAME = "ST_COOKBOOK_MATERIALS";
+    public final static String STEPS_TABLE_NAME = "ST_COOKBOOK_STEPS";
+    public final static String COOKBOOK_TABLE_NAME = "ST_COOKINGS";
+    public final static String COLLECTIONS_TABLE_NAME = "ST_COLLECTIONS";
+
+
+
+
     public final static int DATABASE_VERSION = 2;
 
     private Context mContext;

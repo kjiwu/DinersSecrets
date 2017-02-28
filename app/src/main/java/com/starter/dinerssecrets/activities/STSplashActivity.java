@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.starter.dinerssecrets.R;
+import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
 import com.starter.dinerssecrets.databases.STDBHelper;
+import com.starter.dinerssecrets.utilities.resolvers.STCookbookDetailResolver;
 
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
@@ -38,6 +40,10 @@ public class STSplashActivity extends STBaseActivity {
                     }
                 })
         .subscribe();
+
+        String url = "http://www.chinacaipu.com/caipu/9779.html";
+        STCookbookDetailResolver resolver = new STCookbookDetailResolver(this);
+        resolver.resolveHtml(url, null);
     }
 
 }

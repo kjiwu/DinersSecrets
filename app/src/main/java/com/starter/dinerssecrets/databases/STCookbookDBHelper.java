@@ -3,9 +3,8 @@ package com.starter.dinerssecrets.databases;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.ListView;
 
-import com.starter.dinerssecrets.models.CookbookItem;
+import com.starter.dinerssecrets.models.STCookbookItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,16 @@ import java.util.List;
 
 public class STCookbookDBHelper extends STDBHelper {
 
-    private final static String COOKBOOK_TABLE_NAME = "ST_COOKINGS";
 
-    private final static String COOKBOOK_COLUMN_ID = "cooking_id";
-    private final static String COOKBOOK_COLUMN_NAME = "name";
-    private final static String COOKBOOK_COLUMN_IMAGE = "image";
-    private final static String COOKBOOK_COLUMN_URL = "url";
-    private final static String COOKBOOK_COLUMN_ = "cooking_id";
+    public final static String COOKBOOK_COLUMN_ID = "cooking_id";
+    public final static String COOKBOOK_COLUMN_NAME = "cooking_name";
+    public final static String COOKBOOK_COLUMN_IMAGE_NAME = "cooking_image_name";
+    public final static String COOKBOOK_COLUMN_IMAGE = "cooking_image";
+    public final static String COOKBOOK_COLUMN_URL = "cooking_url";
+    public final static String COOKBOOK_COLUMN_INTRO = "cooking_intro";
+    public final static String COOKBOOK_COLUMN_TYPE = "cooking_type";
+    public final static String COOKBOOK_COLUMN_DIFFICULTY = "cooking_difficulty";
+    public final static String COOKBOOK_COLUMN_MATERIALS = "cooking_materials";
 
     public STCookbookDBHelper(Context context) {
         super(context);
@@ -32,16 +34,16 @@ public class STCookbookDBHelper extends STDBHelper {
         super(context, version);
     }
 
-    public List<CookbookItem> getCookBookLists() {
+    public List<STCookbookItem> getCookBookLists() {
         SQLiteDatabase db = null;
-        ArrayList<CookbookItem> items = null;
+        ArrayList<STCookbookItem> items = null;
         try {
             db = getReadableDatabase();
             Cursor cursor = db.query(COOKBOOK_TABLE_NAME, null, null, null, null, null, null);
             if(null != cursor) {
                 items = new ArrayList<>();
                 while (cursor.moveToNext()) {
-                    CookbookItem book = new CookbookItem();
+                    STCookbookItem book = new STCookbookItem();
                     book.cooking_id = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_ID));
                     book.name = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_NAME));
                     book.image = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_IMAGE));
