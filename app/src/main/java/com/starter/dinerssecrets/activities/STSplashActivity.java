@@ -3,6 +3,7 @@ package com.starter.dinerssecrets.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.starter.dinerssecrets.R;
@@ -12,10 +13,15 @@ import com.starter.dinerssecrets.utilities.resolvers.STCookbookDetailResolver;
 
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 
 public class STSplashActivity extends STBaseActivity {
+
+    Observable mObservable = null;
+    Disposable mDisposable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +35,7 @@ public class STSplashActivity extends STBaseActivity {
             e.printStackTrace();
         }
 
-        Observable.empty().delay(4, TimeUnit.SECONDS)
+        mObservable = Observable.empty().delay(4, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(new Action() {
                     @Override
@@ -38,8 +44,43 @@ public class STSplashActivity extends STBaseActivity {
                         stStartActivity(intent);
                         STSplashActivity.this.finish();
                     }
-                })
-        .subscribe();
+                });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(null != mObservable) {
+            mObservable.subscribe(new Observer() {
+                @Override
+                public void onSubscribe(Disposable d) {
+                    mDisposable = d;
+                }
+
+                @Override
+                public void onNext(Object value) {
+
+                }
+
+                @Override
+                public void onError(Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(null != mDisposable) {
+            mDisposable.dispose();;
+            mDisposable = null;
+        }
+    }
 }
