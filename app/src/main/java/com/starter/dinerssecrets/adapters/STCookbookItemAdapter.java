@@ -12,6 +12,7 @@ import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.databases.STCookbookDBHelper;
 import com.starter.dinerssecrets.managers.ImageDownloadManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
+import com.starter.dinerssecrets.utilities.StringHelper;
 
 import java.util.List;
 
@@ -30,6 +31,12 @@ public class STCookbookItemAdapter extends RecyclerView.Adapter {
     private ImageDownloadManager mImageDownloadManager;
     private STCookbookDBHelper mDBHelper;
 
+    private View.OnClickListener mOnClickListener;
+
+    public void setOnClickListener(View.OnClickListener listener) {
+        mOnClickListener = listener;
+    }
+
     public STCookbookItemAdapter(Context context) {
         mContext = context;
         mImageDownloadManager = new ImageDownloadManager(mContext);
@@ -37,38 +44,30 @@ public class STCookbookItemAdapter extends RecyclerView.Adapter {
         items = mDBHelper.getCookBookLists();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            header = (ImageView) itemView.findViewById(R.id.ci_header);
-            titleView = (TextView) itemView.findViewById(R.id.ci_title);
-            introView = (TextView) itemView.findViewById(R.id.ci_intro);
-            difficultyView = (TextView) itemView.findViewById(R.id.ci_difficulty);
-        }
-
-        public ImageView header;
-        public TextView titleView;
-        public TextView introView;
-        public TextView difficultyView;
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.st_cookbook_item, parent, false);
-        return new ViewHolder(view);
+        return new STCookbookViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         STCookbookItem item = items.get(position);
-        ViewHolder viewHolder = (ViewHolder) holder;
+        STCookbookViewHolder viewHolder = (STCookbookViewHolder) holder;
+        viewHolder.container.setTag(item);
+        viewHolder.container.setOnClickListener(mOnClickListener);
 
-        mImageDownloadManager.downloadImage(item.imageName,
-                item.image,
-                item.cooking_id,
-                IMAGE_TYPE_THUMB,
-                viewHolder.header);
+        String imageName = item.imageName;
+        if(null == item.imageName && null != item.image) {
+            imageName = StringHelper.getImageName(item.image);
+        }
+        if(null != item.image && null != imageName) {
+            mImageDownloadManager.downloadImage(imageName,
+                    item.image,
+                    item.cooking_id,
+                    IMAGE_TYPE_THUMB,
+                    viewHolder.header);
+        }
 
         viewHolder.difficultyView.setText(item.difficulty);
         viewHolder.introView.setText(item.intro);

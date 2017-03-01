@@ -18,49 +18,8 @@ import java.util.ArrayList;
 
 public class STCookbookDetailDBHelper extends STDBHelper {
 
-    public final static String CREATE_DETAIL_TABLE = "create table if not exists ST_COOKBOOK_DETAIL (" +
-            "[cooking_id] varchar(100) primary key," +
-            "[cooking_img] varchar(200)," +
-            "[cooking_time] varchar(100)," +
-            "[cooking_tips] varchar(200)" +
-            ");";
-
-    public final static String CREATE_MATERIALS_TABLE = "create table if not exists ST_COOKBOOK_MATERIALS (" +
-            "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
-            "[material_name] varchar(100)," +
-            "[material_count] varchar(100)" +
-            "[material_type] integer" +
-            ");";
-
-    public final static String CREATE_STEPS_TABLE = "create table if not exists ST_COOKBOOK_STEPS (" +
-            "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
-            "[step_order] varchar(10)," +
-            "[step_name] varchar(200)," +
-            "[step_img] varchar(200)," +
-            ");";
-
-    public final static String CREATE_COMPLETE_PIC_TABLE = "create table if not exists ST_COOKBOOK_COMPLETES (" +
-            "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
-            "[img] varchar(10)," +
-            ");";
-
     public STCookbookDetailDBHelper(Context context) {
         super(context);
-    }
-
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(newVersion > DATABASE_VERSION) {
-            db.execSQL(CREATE_DETAIL_TABLE);
-            db.execSQL(CREATE_MATERIALS_TABLE);
-            db.execSQL(CREATE_STEPS_TABLE);
-            db.execSQL(CREATE_COMPLETE_PIC_TABLE);
-        }
-        super.onUpgrade(db, oldVersion, newVersion);
     }
 
     public STCookbookDetail getCookbookDetail(String cooking_id) {

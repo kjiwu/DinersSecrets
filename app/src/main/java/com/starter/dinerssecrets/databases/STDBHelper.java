@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.starter.dinerssecrets.managers.AppManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -54,8 +57,41 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String COLLECTION_COLUMN_COOKBOOK_ID = "cooking_id";
     public final static String COLLECTION_COLUMN_ORDER = "collection_order";
 
-    public final static String COMPLETE_COLUMN_PIC = "img";
+    private final static String CREATE_COLLECTIONS_TABLE = "CREATE TABLE IF NOT EXISTS [ST_COLLECTIONS](\n" +
+            "[collection_order] INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
+            "[cooking_id] VARCHAR(100) NOT NULL UNIQUE \n" +
+            ");";
 
+    public final static String CREATE_DETAIL_TABLE = "create table if not exists ST_COOKBOOK_DETAIL (" +
+            "[cooking_id] varchar(100) primary key," +
+            "[cooking_img] varchar(200)," +
+            "[cooking_time] varchar(100)," +
+            "[cooking_tips] varchar(200)" +
+            ");";
+
+    public final static String CREATE_MATERIALS_TABLE = "create table if not exists ST_COOKBOOK_MATERIALS (" +
+            "[id] integer primary key AUTOINCREMENT," +
+            "[cooking_id] varchar(100)," +
+            "[material_name] varchar(100)," +
+            "[material_count] varchar(100)," +
+            "[material_type] integer" +
+            ");";
+
+    public final static String CREATE_STEPS_TABLE = "create table if not exists ST_COOKBOOK_STEPS (" +
+            "[id] integer primary key AUTOINCREMENT," +
+            "[cooking_id] varchar(100)," +
+            "[step_order] varchar(10)," +
+            "[step_name] varchar(200)," +
+            "[step_img] varchar(200)" +
+            ");";
+
+    public final static String CREATE_COMPLETE_PIC_TABLE = "create table if not exists ST_COOKBOOK_COMPLETES (" +
+            "[id] integer primary key AUTOINCREMENT," +
+            "[cooking_id] varchar(100)," +
+            "[img] varchar(10)" +
+            ");";
+
+    public final static String COMPLETE_COLUMN_PIC = "img";
 
     public final static int DATABASE_VERSION = 2;
 
@@ -73,12 +109,21 @@ public class STDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.d(AppManager.APP_TAG, "create database.");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        Log.d(AppManager.APP_TAG, "database update, oldVersion: " + oldVersion + ", newVersion: " + newVersion);
+        switch (newVersion) {
+            case 1:
+            case 2:
+                db.execSQL(CREATE_COLLECTIONS_TABLE);
+                db.execSQL(CREATE_DETAIL_TABLE);
+                db.execSQL(CREATE_MATERIALS_TABLE);
+                db.execSQL(CREATE_STEPS_TABLE);
+                db.execSQL(CREATE_COMPLETE_PIC_TABLE);
+        }
     }
 
     /**

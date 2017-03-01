@@ -4,7 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 
 import java.util.ArrayList;
@@ -16,24 +18,41 @@ import java.util.List;
 
 public class STCollectionsDBHelper extends STDBHelper {
 
-    private final static String CREATE_COLLECTIONS_TABLE = "CREATE TABLE IF NOT EXISTS [ST_COLLECTIONS](\n" +
-            "[collection_order] INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
-            "[cooking_id] VARCHAR(100) NOT NULL UNIQUE \n" +
-            ");";
-
     public STCollectionsDBHelper(Context context) {
         super(context);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(newVersion > DATABASE_VERSION) {
-            db.execSQL(CREATE_COLLECTIONS_TABLE);
-        }
+        Log.d(AppManager.APP_TAG, "database update, oldVersion: " + oldVersion + ", newVersion: " + newVersion);
         super.onUpgrade(db, oldVersion, newVersion);
     }
 
+    private boolean haveThisCollection(String cooking_id) {
+        SQLiteDatabase db = null;
+        boolean result = false;
+        try{
+            db = getReadableDatabase();
+            Cursor cursor = db.query(COLLECTIONS_TABLE_NAME, null, "cooking_id=?",
+                    new String[] {cooking_id}, null, null, null);
+            result = (cursor.getCount() > 0);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(null != db) {
+                db.close();
+            }
+        }
+        return result;
+    }
+
     public void insertCollection(String cooking_id) {
+        if(haveThisCollection(cooking_id)) {
+            return;
+        }
+
         SQLiteDatabase db = null;
         try {
             db = getWritableDatabase();
@@ -89,8 +108,11 @@ public class STCollectionsDBHelper extends STDBHelper {
                 item.cooking_id = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_ID));
                 item.name = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_NAME));
                 item.image = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_IMAGE));
+                item.imageName = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_IMAGE_NAME));
                 item.url = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_URL));
                 item.intro = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_INTRO));
+                item.difficulty = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_DIFFICULTY));
+                list.add(item);
             }
         }
         catch (Exception e) {
