@@ -13,9 +13,15 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="ToolBarTheme" parent="Theme.AppCompat.Light">
+    <style name="ToolBarTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="titleTextColor">@android:color/white</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    </style>
+
+    <style name="ToolBarTitleStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/cookbook_item_title_size</item>
     </style>
 
     <style name="CookbookItemTitleStyle" parent="Theme.AppCompat.Light">

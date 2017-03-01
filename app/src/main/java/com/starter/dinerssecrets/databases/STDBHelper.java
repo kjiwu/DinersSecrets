@@ -71,7 +71,7 @@ public class STDBHelper extends SQLiteOpenHelper {
 
     public final static String CREATE_MATERIALS_TABLE = "create table if not exists ST_COOKBOOK_MATERIALS (" +
             "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
+            "[cooking_id] varchar(100) not null," +
             "[material_name] varchar(100)," +
             "[material_count] varchar(100)," +
             "[material_type] integer" +
@@ -79,7 +79,7 @@ public class STDBHelper extends SQLiteOpenHelper {
 
     public final static String CREATE_STEPS_TABLE = "create table if not exists ST_COOKBOOK_STEPS (" +
             "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
+            "[cooking_id] varchar(100) not null," +
             "[step_order] varchar(10)," +
             "[step_name] varchar(200)," +
             "[step_img] varchar(200)" +
@@ -87,7 +87,7 @@ public class STDBHelper extends SQLiteOpenHelper {
 
     public final static String CREATE_COMPLETE_PIC_TABLE = "create table if not exists ST_COOKBOOK_COMPLETES (" +
             "[id] integer primary key AUTOINCREMENT," +
-            "[cooking_id] varchar(100)," +
+            "[cooking_id] varchar(100) not null," +
             "[img] varchar(10)" +
             ");";
 

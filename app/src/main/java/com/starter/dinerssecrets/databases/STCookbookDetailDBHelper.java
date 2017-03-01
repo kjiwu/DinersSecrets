@@ -22,6 +22,28 @@ public class STCookbookDetailDBHelper extends STDBHelper {
         super(context);
     }
 
+    private boolean haveThisDetail(String cooking_id) {
+        SQLiteDatabase db = null;
+        boolean result= false;
+
+        try {
+            db = getReadableDatabase();
+            Cursor cursor = db.query(DETAIL_TABLE_NAME, new String[] { "cooking_id" },
+                    "cooking_id=?", new String[] { cooking_id } , null, null, null);
+            result = cursor.getCount() > 0;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(null != db) {
+                db.close();
+            }
+        }
+
+        return result;
+    }
+
     public STCookbookDetail getCookbookDetail(String cooking_id) {
         STCookbookDetail detail = null;
         SQLiteDatabase db = null;
@@ -90,6 +112,10 @@ public class STCookbookDetailDBHelper extends STDBHelper {
 
     public void insertCookbookDetail(STCookbookDetail detail) {
         if(null == detail) {
+            return;
+        }
+
+        if(haveThisDetail(detail.cooking_id)) {
             return;
         }
 

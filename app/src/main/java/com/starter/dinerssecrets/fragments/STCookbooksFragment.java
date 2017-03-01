@@ -1,7 +1,9 @@
 package com.starter.dinerssecrets.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.starter.dinerssecrets.R;
+import com.starter.dinerssecrets.activities.STDetailActivity;
 import com.starter.dinerssecrets.adapters.STCookbookCollectionAdapter;
 import com.starter.dinerssecrets.adapters.STCookbookItemAdapter;
 import com.starter.dinerssecrets.customs.EmptyRecyclerView;
@@ -40,9 +43,11 @@ public class STCookbooksFragment extends STBaseFragment {
             public void onClick(View v) {
                 STCookbookItem item = (STCookbookItem) v.getTag();
                 if(null != item) {
-                    Log.d(AppManager.APP_TAG, "你点击了: " + item.name);
-                    STCollectionsDBHelper dbHelper = new STCollectionsDBHelper(inflater.getContext());
-                    dbHelper.insertCollection(item.cooking_id);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("book", item);
+                    Intent intent = new Intent(getActivity(), STDetailActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             }
         });

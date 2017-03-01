@@ -1,7 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:scrollbarAlwaysDrawHorizontalTrack="false">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_toolbar"
+        android:layout_weight="0"
+        style="@style/ToolBarTheme">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/detail_tv_title"
+            android:text="板栗烧鸡"
+            style="@style/ToolBarTitleStyle"/>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/header"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="板栗烧鸡这道菜平时在家很少做，因为板栗去皮实在是太麻烦了。这道菜吃起来相当的美味，所以即使板栗难剥皮也要吃。"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/colorAccent">
+                <TableRow android:background="@android:color/darker_gray">
+                    <TextView android:text="烹饪难度：一般"
+                              android:layout_weight="1"
+                              android:layout_height="32dp"
+                              android:layout_width="0dp"
+                              android:gravity="center_vertical"/>
+                    <TextView android:text="烹饪时间：数小时"
+                              android:layout_weight="1"
+                              android:layout_height="32dp"
+                              android:layout_width="0dp"
+                              android:gravity="center_vertical"/>
+                </TableRow>
+                <TableRow android:background="@android:color/darker_gray">
+                    <TextView android:text="主料"
+                              android:layout_weight="1"
+                              android:layout_height="32dp"
+                              android:layout_width="0dp"
+                              android:textColor="@android:color/holo_red_light"
+                              android:gravity="center_vertical"/>
+                </TableRow>
+                <TableRow>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="鸡肉"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="500g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="板栗"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="300g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                </TableRow>
+                <TableRow android:background="@android:color/darker_gray">
+                    <TextView android:text="调料"
+                              android:layout_weight="1"
+                              android:layout_height="32dp"
+                              android:layout_width="0dp"
+                              android:textColor="@android:color/holo_red_light"
+                              android:gravity="center_vertical"/>
+                </TableRow>
+                <TableRow>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="鸡肉"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="500g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="板栗"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="300g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                </TableRow>
+                <TableRow>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="鸡肉"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="500g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="板栗"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="300g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                </TableRow>
+                <TableRow>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="鸡肉"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="500g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout android:layout_weight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="32dp">
+                        <TextView android:text="板栗"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentLeft="true"/>
+                        <TextView android:text="300g"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="center_vertical"
+                                  android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

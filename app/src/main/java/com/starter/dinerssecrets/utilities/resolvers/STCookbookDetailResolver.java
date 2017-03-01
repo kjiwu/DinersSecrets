@@ -3,6 +3,7 @@ package com.starter.dinerssecrets.utilities.resolvers;
 import android.content.Context;
 import android.util.Log;
 
+import com.starter.dinerssecrets.databases.STCookbookDetailDBHelper;
 import com.starter.dinerssecrets.models.STCookbookDetail;
 import com.starter.dinerssecrets.models.STCookbookMaterial;
 import com.starter.dinerssecrets.models.STCookbookStep;
@@ -108,15 +109,19 @@ public class STCookbookDetailResolver {
         if(elements.size() > 0) {
             detail.image = elements.get(0).attr("src");
         }
-        elements = htmlDoc.select("table.cp-show-tab tbody tr");
+        elements = htmlDoc.select("table.cp-show-tab tbody tr th");
         if(elements.size() > 0) {
             detail.time = elements.get(1).ownText();
         }
 
+        detail.cooking_id = bookId;
         detail.materials = getMaterials(htmlDoc);
         detail.steps = getSteps(htmlDoc);
         detail.tips = getTips(htmlDoc);
         detail.complete_pic = getCompletePic(htmlDoc);
+
+        STCookbookDetailDBHelper dbHelper = new STCookbookDetailDBHelper(mContext);
+        dbHelper.insertCookbookDetail(detail);
 
         return detail;
     }
