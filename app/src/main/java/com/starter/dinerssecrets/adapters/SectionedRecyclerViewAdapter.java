@@ -31,6 +31,19 @@ public abstract class SectionedRecyclerViewAdapter<H extends RecyclerView.ViewHo
         F extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private boolean mIsScrolling = false;
+
+    public void setScrolling(boolean value) {
+        if(value != mIsScrolling) {
+            mIsScrolling = value;
+            notifyDataSetChanged();
+        }
+    }
+
+    public boolean getIsScrolling() {
+        return mIsScrolling;
+    }
+
     protected static final int TYPE_SECTION_HEADER = -1;
     protected static final int TYPE_SECTION_FOOTER = -2;
     protected static final int TYPE_ITEM = -3;

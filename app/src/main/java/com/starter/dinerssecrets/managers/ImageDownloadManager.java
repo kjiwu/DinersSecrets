@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 
+import com.starter.dinerssecrets.R;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -48,10 +50,15 @@ public class ImageDownloadManager {
         Observable.create(new ObservableOnSubscribe<Bitmap>() {
             @Override
             public void subscribe(ObservableEmitter<Bitmap> e) throws Exception {
-                URL l_url = new URL(url);
-                HttpURLConnection conn = (HttpURLConnection) l_url.openConnection();
+                if(!NetwrokManager.isNetworkAvailable(mContext)) {
+                    e.onNext(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher));
+                    return;
+                }
+
                 InputStream in = null;
                 try {
+                    URL l_url = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) l_url.openConnection();
                     in = conn.getInputStream();
                     BitmapFactory.Options options = new BitmapFactory.Options();
                     options.inSampleSize = 3;

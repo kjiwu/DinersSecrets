@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.starter.dinerssecrets.adapters.STRecyclerViewAdapter;
+
 /**
  * Created by wulei on 2017/3/1.
  */
@@ -14,16 +16,43 @@ public class EmptyRecyclerView extends RecyclerView {
 
     private View mEmptyView;
 
+    private OnScrollListener mOnScrollListener = new OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            if(getAdapter() instanceof  STRecyclerViewAdapter) {
+                STRecyclerViewAdapter adapter = (STRecyclerViewAdapter) getAdapter();
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                        adapter.setScrolling(false);
+                        break;
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        adapter.setScrolling(true);
+                        break;
+                }
+            }
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+        }
+    };
+
     public EmptyRecyclerView(Context context) {
         super(context);
+        this.addOnScrollListener(mOnScrollListener);
     }
 
     public EmptyRecyclerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        this.addOnScrollListener(mOnScrollListener);
     }
 
     public EmptyRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.addOnScrollListener(mOnScrollListener);
     }
 
     private AdapterDataObserver mAdapterDataObserver = new AdapterDataObserver() {

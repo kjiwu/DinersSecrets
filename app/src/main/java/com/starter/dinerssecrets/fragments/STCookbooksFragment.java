@@ -3,22 +3,17 @@ package com.starter.dinerssecrets.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.activities.STDetailActivity;
-import com.starter.dinerssecrets.adapters.STCookbookCollectionAdapter;
 import com.starter.dinerssecrets.adapters.STCookbookItemAdapter;
 import com.starter.dinerssecrets.customs.EmptyRecyclerView;
-import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
 import com.starter.dinerssecrets.databases.STCookbookDBHelper;
-import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 
 /**
@@ -40,8 +35,19 @@ public class STCookbooksFragment extends STBaseFragment {
 
         mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.cb_recyclerView);
         mRecyclerView.setEmptyView(emptyView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
-        STCookbookItemAdapter adapter = new STCookbookItemAdapter(inflater.getContext());
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+        STCookbookItemAdapter adapter = new STCookbookItemAdapter(getActivity());
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

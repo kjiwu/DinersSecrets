@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
@@ -26,7 +24,7 @@ import static com.starter.dinerssecrets.managers.ImageDownloadManager.IMAGE_TYPE
  * Created by wulei on 2017/3/1.
  */
 
-public class STCookbookCollectionAdapter extends RecyclerView.Adapter {
+public class STCookbookCollectionAdapter extends STRecyclerViewAdapter {
 
     private Context mContext;
     private List<STCookbookItem> items;

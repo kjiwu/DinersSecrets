@@ -1,15 +1,13 @@
 package com.starter.dinerssecrets.adapters;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.starter.dinerssecrets.R;
-import com.starter.dinerssecrets.databases.STCookbookDBHelper;
 import com.starter.dinerssecrets.managers.ImageDownloadManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 import com.starter.dinerssecrets.utilities.StringHelper;
@@ -22,7 +20,7 @@ import static com.starter.dinerssecrets.managers.ImageDownloadManager.IMAGE_TYPE
  * Created by wulei on 2017/2/27.
  */
 
-public class STCookbookItemAdapter extends RecyclerView.Adapter {
+public class STCookbookItemAdapter extends STRecyclerViewAdapter {
 
     private Context mContext;
 
@@ -64,11 +62,15 @@ public class STCookbookItemAdapter extends RecyclerView.Adapter {
             imageName = StringHelper.getImageName(item.image);
         }
         if(null != item.image && null != imageName) {
-            mImageDownloadManager.downloadImage(imageName,
-                    item.image,
-                    item.cooking_id,
-                    IMAGE_TYPE_THUMB,
-                    viewHolder.header);
+            if(false == getIsScrolling()) {
+                mImageDownloadManager.downloadImage(imageName,
+                        item.image,
+                        item.cooking_id,
+                        IMAGE_TYPE_THUMB,
+                        viewHolder.header);
+            } else {
+                viewHolder.header.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher));
+            }
         }
 
         viewHolder.difficultyView.setText(item.difficulty);
