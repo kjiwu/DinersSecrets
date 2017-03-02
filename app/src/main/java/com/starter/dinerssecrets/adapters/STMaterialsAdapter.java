@@ -101,6 +101,7 @@ public class STMaterialsAdapter extends SectionedRecyclerViewAdapter<STMaterialH
         if(null != entity && null != entity.allMaterials) {
             STMaterialEntity.MaterialGroup group = entity.allMaterials.get(section);
             if(null != group.materials) {
+                holder.content.removeAllViews();
                 for(STMaterialsItem material : group.materials) {
                     TextView tv = new TextView(mContext);
                     tv.setText(material.name);
