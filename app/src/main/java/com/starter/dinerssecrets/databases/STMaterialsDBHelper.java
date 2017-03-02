@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.starter.dinerssecrets.models.STMaterialEntity;
 import com.starter.dinerssecrets.models.STMaterialsItem;
 
 import java.util.ArrayList;
@@ -44,26 +45,31 @@ public class STMaterialsDBHelper extends STDBHelper {
         }
     }
 
-    public Map<String, List<STMaterialsItem>> getMaterials() {
-        Map<String, List<STMaterialsItem>> items = null;
+    public STMaterialEntity getMaterials() {
+        STMaterialEntity entity = null;
         SQLiteDatabase db = null;
         try {
             db = getReadableDatabase();
+            entity = new STMaterialEntity();
             Cursor cursor = db.rawQuery("select distinct material_type from st_materials", null, null);
+            entity.allMaterials = new ArrayList<>();
+
             while (cursor.moveToNext()) {
                 String type = cursor.getString(0);
                 String sql = "select material_name, material_image from st_materials where material_type='" + type + "';";
                 Cursor cursor_material = db.rawQuery(sql, null, null);
-                List<STMaterialsItem> materials = new ArrayList<>();
-                items = new HashMap<>();
+                STMaterialEntity.MaterialGroup group = entity.new MaterialGroup();
+                group.type = type;
+                group.materials = new ArrayList<>();
                 while (cursor_material.moveToNext()) {
                     STMaterialsItem material = new STMaterialsItem();
                     material.type = type;
                     material.name = cursor_material.getString(cursor_material.getColumnIndex(MATERIALS_COLUMN_NAME));
                     material.image = cursor_material.getString(cursor_material.getColumnIndex(MATERIALS_COLUMN_IMG));
-                    materials.add(material);
+                    group.materials.add(material);
                 }
-                items.put(type, materials);
+
+                entity.allMaterials.add(group);
             }
         }
         catch (Exception e) {
@@ -75,6 +81,28 @@ public class STMaterialsDBHelper extends STDBHelper {
             }
         }
 
-        return items;
+        return entity;
+    }
+
+    public List<String> getMaterialTypes() {
+        List<String> types = null;
+        SQLiteDatabase db = null;
+        try {
+            db = getReadableDatabase();
+            Cursor cursor = db.rawQuery("select distinct material_type from st_materials", null, null);
+            types = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                types.add(cursor.getString(0));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally {
+            if(null != db) {
+                db.close();
+            }
+        }
+        return types;
     }
 }
