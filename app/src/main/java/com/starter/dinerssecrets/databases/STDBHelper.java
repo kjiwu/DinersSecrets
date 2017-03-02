@@ -27,6 +27,7 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String COOKBOOK_TABLE_NAME = "ST_COOKINGS";
     public final static String COLLECTIONS_TABLE_NAME = "ST_COLLECTIONS";
     public final static String COMPLETE_PIC_TABLE_NAME = "ST_COOKBOOK_COMPLETES";
+    public final static String MATERIALS_TABLE_NAME = "st_materials";
 
     public final static String COOKBOOK_COLUMN_ID = "cooking_id";
     public final static String COOKBOOK_COLUMN_NAME = "cooking_name";
@@ -56,6 +57,11 @@ public class STDBHelper extends SQLiteOpenHelper {
 
     public final static String COLLECTION_COLUMN_COOKBOOK_ID = "cooking_id";
     public final static String COLLECTION_COLUMN_ORDER = "collection_order";
+
+    public final static String MATERIALS_COLUMN_ID = "material_id";
+    public final static String MATERIALS_COLUMN_TYPE = "material_type";
+    public final static String MATERIALS_COLUMN_NAME = "material_name";
+    public final static String MATERIALS_COLUMN_IMG = "material_image";
 
     private final static String CREATE_COLLECTIONS_TABLE = "CREATE TABLE IF NOT EXISTS [ST_COLLECTIONS](\n" +
             "[collection_order] INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
