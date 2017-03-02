@@ -17,6 +17,7 @@ import com.starter.dinerssecrets.adapters.STCookbookCollectionAdapter;
 import com.starter.dinerssecrets.adapters.STCookbookItemAdapter;
 import com.starter.dinerssecrets.customs.EmptyRecyclerView;
 import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
+import com.starter.dinerssecrets.databases.STCookbookDBHelper;
 import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 
@@ -27,12 +28,15 @@ import com.starter.dinerssecrets.models.STCookbookItem;
 public class STCookbooksFragment extends STBaseFragment {
 
     private EmptyRecyclerView mRecyclerView;
+    private STCookbookDBHelper mDBHelper;
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_st_cookbooks, null);
         View emptyView = view.findViewById(R.id.emptyView);
+
+        mDBHelper = new STCookbookDBHelper(getContext());
 
         mRecyclerView = (EmptyRecyclerView) view.findViewById(R.id.cb_recyclerView);
         mRecyclerView.setEmptyView(emptyView);
@@ -51,6 +55,7 @@ public class STCookbooksFragment extends STBaseFragment {
                 }
             }
         });
+        adapter.setData(mDBHelper.getCookBookLists());
         mRecyclerView.setAdapter(adapter);
         return view;
     }

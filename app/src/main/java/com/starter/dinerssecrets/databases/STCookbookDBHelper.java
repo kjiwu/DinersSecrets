@@ -29,7 +29,7 @@ public class STCookbookDBHelper extends STDBHelper {
         try {
             db = getReadableDatabase();
             Cursor cursor = db.query(COOKBOOK_TABLE_NAME, null, null, null, null, null, null);
-            if(null != cursor) {
+            if (null != cursor) {
                 items = new ArrayList<>();
                 while (cursor.moveToNext()) {
                     STCookbookItem book = new STCookbookItem();
@@ -43,12 +43,55 @@ public class STCookbookDBHelper extends STDBHelper {
                     items.add(book);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (null != db) {
+                db.close();
+            }
         }
-        finally {
-            if(null != db) {
+
+        return items;
+    }
+
+    public List<STCookbookItem> searchCookbooks(List<String> materials) {
+        SQLiteDatabase db = null;
+        ArrayList<STCookbookItem> items = null;
+        try {
+            if (materials.size() > 0) {
+                db = getReadableDatabase();
+                StringBuilder builder = new StringBuilder();
+                builder.append("select * from " + COOKBOOK_TABLE_NAME);
+
+                builder.append(" where ");
+                for (int i = 0; i < materials.size(); i++) {
+                    builder.append("(cooking_materials like '%" + materials.get(i) + "%')");
+                    if (i != materials.size() - 1) {
+                        builder.append(" and ");
+                    }
+                }
+
+
+                Cursor cursor = db.rawQuery(builder.toString(), null, null);
+                if (null != cursor) {
+                    items = new ArrayList<>();
+                    while (cursor.moveToNext()) {
+                        STCookbookItem book = new STCookbookItem();
+                        book.cooking_id = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_ID));
+                        book.name = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_NAME));
+                        book.image = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_IMAGE));
+                        book.imageName = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_IMAGE_NAME));
+                        book.url = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_URL));
+                        book.difficulty = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_DIFFICULTY));
+                        book.intro = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_INTRO));
+                        items.add(book);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != db) {
                 db.close();
             }
         }

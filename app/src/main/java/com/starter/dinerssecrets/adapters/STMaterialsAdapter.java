@@ -20,6 +20,16 @@ public class STMaterialsAdapter extends SectionedRecyclerViewAdapter<STMaterialH
         STMaterialContentViewHolder,
         STMaterialFooterViewHolder> {
 
+    public interface OnMaterialSelectedLintener {
+        void OnSelected(CharSequence name);
+    }
+
+    private OnMaterialSelectedLintener mOnMaterialSelectedLintener;
+
+    public void setOnMaterialSelectedLintener(OnMaterialSelectedLintener listener) {
+        mOnMaterialSelectedLintener = listener;
+    }
+
     private STMaterialEntity entity;
     private Context mContext;
 
@@ -97,7 +107,10 @@ public class STMaterialsAdapter extends SectionedRecyclerViewAdapter<STMaterialH
                     tv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(mContext, "Hello", Toast.LENGTH_SHORT).show();
+                            TextView textView = (TextView) v;
+                            if(null != textView && null != mOnMaterialSelectedLintener) {
+                                mOnMaterialSelectedLintener.OnSelected(textView.getText());
+                            }
                         }
                     });
                     holder.content.addView(tv);

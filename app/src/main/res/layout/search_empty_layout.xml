@@ -2,15 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="32dp"
-    android:background="@color/colorPrimary"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:gravity="center_vertical">
+              android:layout_height="match_parent"
+              android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/search_list_tv_header"
-        style="@style/SearchGroupTitleStyle"/>
+        android:text="@string/search_result_empty_tip"
+        />
 
 </LinearLayout>

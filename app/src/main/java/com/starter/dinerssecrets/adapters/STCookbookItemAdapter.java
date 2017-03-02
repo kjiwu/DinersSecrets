@@ -29,7 +29,6 @@ public class STCookbookItemAdapter extends RecyclerView.Adapter {
     private List<STCookbookItem> items;
 
     private ImageDownloadManager mImageDownloadManager;
-    private STCookbookDBHelper mDBHelper;
 
     private View.OnClickListener mOnClickListener;
 
@@ -37,11 +36,14 @@ public class STCookbookItemAdapter extends RecyclerView.Adapter {
         mOnClickListener = listener;
     }
 
+    public void setData(List<STCookbookItem> data) {
+        items = data;
+        notifyDataSetChanged();
+    }
+
     public STCookbookItemAdapter(Context context) {
         mContext = context;
         mImageDownloadManager = new ImageDownloadManager(mContext);
-        mDBHelper = new STCookbookDBHelper(mContext);
-        items = mDBHelper.getCookBookLists();
     }
 
     @Override

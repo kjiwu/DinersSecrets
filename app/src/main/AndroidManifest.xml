@@ -21,7 +21,8 @@
         </activity>
 
         <activity android:name=".activities.STMainActivity"/>
-        <activity android:name=".activities.STSearchActivity"/>
+        <activity android:name=".activities.STSearchActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity android:name=".activities.STDetailActivity"/>
 
         <receiver android:name=".receivers.NetworkChangedReceiver">

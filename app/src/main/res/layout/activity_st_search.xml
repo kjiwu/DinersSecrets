@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
+        android:id="@+id/search_toolbar"
+        style="@style/ToolBarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/search_toolbar"
-        android:layout_weight="0"
-        style="@style/ToolBarTheme">
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_weight="0">
+
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/main_toolbar_search_title"
-            style="@style/ToolBarTitleStyle"/>
+            android:hint="@string/search_edit_hint"
+            android:id="@+id/search_edittext"
+            android:lines="2"
+            android:layout_gravity="center_vertical"/>
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/search_materials_list">
+        android:layout_weight="1">
 
-    </android.support.v7.widget.RecyclerView>
+        <com.starter.dinerssecrets.customs.EmptyRecyclerView
+            android:id="@+id/search_result_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        </com.starter.dinerssecrets.customs.EmptyRecyclerView>
+
+        <com.starter.dinerssecrets.customs.EmptyRecyclerView
+            android:id="@+id/search_materials_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.starter.dinerssecrets.customs.EmptyRecyclerView>
+
+        <include layout="@layout/search_empty_layout" android:id="@+id/search_empty_tip"
+            android:visibility="gone"/>
+
+    </FrameLayout>
 
 </LinearLayout>

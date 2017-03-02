@@ -4,4 +4,7 @@
     <string name="cookbook_item_difficulty_title">烹饪难度:</string>
 
     <string name="main_toolbar_search_title">搜索</string>
+    <string name="search_edit_hint">选择或输入食材</string>
+
+    <string name="search_result_empty_tip">没有搜索到相关的菜谱，\n修改修改你的食材吧~~</string>
 </resources>
