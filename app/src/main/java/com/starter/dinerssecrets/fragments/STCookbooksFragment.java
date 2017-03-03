@@ -24,6 +24,11 @@ public class STCookbooksFragment extends STBaseFragment {
 
     private EmptyRecyclerView mRecyclerView;
     private STCookbookDBHelper mDBHelper;
+    private STCookbookItemAdapter mAdapter;
+
+    private STCookbookItem mSelectedItem;
+
+    public final static int COOKBBOKS_REQUEST_CODE = 1;
 
     @Nullable
     @Override
@@ -47,22 +52,38 @@ public class STCookbooksFragment extends STBaseFragment {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        STCookbookItemAdapter adapter = new STCookbookItemAdapter(getActivity());
-        adapter.setOnClickListener(new View.OnClickListener() {
+        mAdapter = new STCookbookItemAdapter(getActivity());
+        mAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                STCookbookItem item = (STCookbookItem) v.getTag();
-                if(null != item) {
+                mSelectedItem = (STCookbookItem) v.getTag();
+                if(null != mSelectedItem) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("book", item);
+                    bundle.putSerializable("book", mSelectedItem);
                     Intent intent = new Intent(getActivity(), STDetailActivity.class);
                     intent.putExtras(bundle);
-                    startActivity(intent);
+                    startActivityForResult(intent, COOKBBOKS_REQUEST_CODE);
                 }
             }
         });
-        adapter.setData(mDBHelper.getCookBookLists());
-        mRecyclerView.setAdapter(adapter);
+        mAdapter.setData(mDBHelper.getCookBookLists());
+        mRecyclerView.setAdapter(mAdapter);
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == COOKBBOKS_REQUEST_CODE) {
+            if(null != data) {
+                boolean isSaveCollection = data.getBooleanExtra("IsSaveCollection", false);
+                if (isSaveCollection != mSelectedItem.isCollection) {
+                    mSelectedItem.isCollection = isSaveCollection;
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+            mSelectedItem = null;
+        }
     }
 }

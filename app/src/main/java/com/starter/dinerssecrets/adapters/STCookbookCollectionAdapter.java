@@ -1,10 +1,7 @@
 package com.starter.dinerssecrets.adapters;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,6 @@ import android.view.ViewGroup;
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.adapters.viewholders.STCookbookViewHolder;
 import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
-import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.managers.ImageDownloadManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 import com.starter.dinerssecrets.utilities.StringHelper;
@@ -26,6 +22,11 @@ import static com.starter.dinerssecrets.managers.ImageDownloadManager.IMAGE_TYPE
  */
 
 public class STCookbookCollectionAdapter extends STRecyclerViewAdapter {
+
+    public class TagHolder {
+        public STCookbookItem item;
+        public int position;
+    }
 
     private Context mContext;
     private List<STCookbookItem> items;
@@ -59,25 +60,15 @@ public class STCookbookCollectionAdapter extends STRecyclerViewAdapter {
         viewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("你确定要删除当前收藏菜谱吗?");
-                builder.setCancelable(true);
-                builder.setTitle(mContext.getResources().getString(R.string.app_name));
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d(AppManager.APP_TAG, "现在要删除[" + position + "]位置处的收藏");
-                        notifyItemRemoved(position);
-                        items.remove(position);
-                        notifyDataSetChanged();
-                        mOnClickListener.onClick(v);
-                    }
-                });
-                builder.setNegativeButton("取消", null);
-                builder.show();
+                if(null != mOnClickListener) {
+                    mOnClickListener.onClick(v);
+                }
             }
         });
-        viewHolder.container.setTag(item.cooking_id);
+        TagHolder th = new TagHolder();
+        th.item = item;
+        th.position = position;
+        viewHolder.container.setTag(th);
 
         String imageName = item.imageName;
         if(null == item.imageName && null != item.image) {
@@ -99,5 +90,11 @@ public class STCookbookCollectionAdapter extends STRecyclerViewAdapter {
     @Override
     public int getItemCount() {
         return (null == items) ? 0 : items.size();
+    }
+
+    public void removeItem(int position) {
+        items.remove(position);
+        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 }

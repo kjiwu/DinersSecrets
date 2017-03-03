@@ -1,11 +1,7 @@
 package com.starter.dinerssecrets.adapters;
 
 import android.content.Context;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +19,9 @@ import com.starter.dinerssecrets.managers.NetwrokManager;
 import com.starter.dinerssecrets.models.STCookbookDetail;
 import com.starter.dinerssecrets.models.STCookbookMaterial;
 import com.starter.dinerssecrets.models.STCookbookStep;
-import com.starter.dinerssecrets.models.STMaterialsItem;
 import com.starter.dinerssecrets.utilities.DipPixelHelper;
 import com.starter.dinerssecrets.utilities.StringHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -225,7 +219,7 @@ public class STDetailAdapter extends RecyclerView.Adapter {
             if (showBorder == true) {
                 holder.container.setBackgroundResource(R.drawable.border_background);
             } else {
-                holder.container.setBackgroundResource(android.R.color.darker_gray);
+                holder.container.setBackgroundResource(R.color.colorBackground);
             }
         }
     }
@@ -288,6 +282,7 @@ public class STDetailAdapter extends RecyclerView.Adapter {
 
     private void loadCompleteTitle(STDetailHeaderViewHolder holder) {
         if (null != holder) {
+            holder.container.setVisibility(View.GONE);
             if(null == mDetail.complete_pic || mDetail.complete_pic.size() == 0) {
                 holder.container.setVisibility(View.GONE);
             } else {
@@ -301,17 +296,21 @@ public class STDetailAdapter extends RecyclerView.Adapter {
     }
 
     private void loadCompleteImages(STDetailContentViewHolder holder) {
-        holder.contentList.setVisibility(View.VISIBLE);
+        holder.contentList.setVisibility(View.GONE);
         holder.contentView.setVisibility(View.GONE);
         if(null != holder && null != mDetail.complete_pic) {
+            holder.contentList.setVisibility(View.VISIBLE);
             holder.contentList.removeAllViews();
 
             for(String url : mDetail.complete_pic) {
                 ImageView iv = new ImageView(mContext);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                         DipPixelHelper.dipToPixels(mContext, 128),
-                        DipPixelHelper.dipToPixels(mContext, 72));
-                
+                        DipPixelHelper.dipToPixels(mContext, 128));
+
+                lp.setMargins(12, 12, 12, 12);
+                iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
                 iv.setLayoutParams(lp);
                 if (NetwrokManager.isNetworkAvailable(mContext)) {
                     if (null != iv) {

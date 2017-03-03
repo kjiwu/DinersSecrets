@@ -18,6 +18,9 @@ import java.util.List;
 
 public class STCollectionsDBHelper extends STDBHelper {
 
+    public final static int IS_COLLECTION_VALUE = 1;
+    public final static int IS_NOT_COLLECTION_VALUE = 0;
+
     public STCollectionsDBHelper(Context context) {
         super(context);
     }
@@ -28,14 +31,14 @@ public class STCollectionsDBHelper extends STDBHelper {
         super.onUpgrade(db, oldVersion, newVersion);
     }
 
-    private boolean haveThisCollection(String cooking_id) {
+    public boolean haveThisCollection(String cooking_id) {
         SQLiteDatabase db = null;
         boolean result = false;
         try{
             db = getReadableDatabase();
-            Cursor cursor = db.query(COLLECTIONS_TABLE_NAME, null, "cooking_id=?",
+            Cursor cursor = db.query(COOKBOOK_TABLE_NAME, new String[] { COOKBOOK_COLUMN_ISCOLLECTION }, "cooking_id=?",
                     new String[] {cooking_id}, null, null, null);
-            result = (cursor.getCount() > 0);
+            result = cursor.getInt(0) == 0;
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -58,8 +61,8 @@ public class STCollectionsDBHelper extends STDBHelper {
             db = getWritableDatabase();
             db.beginTransaction();
             ContentValues values = new ContentValues();
-            values.put(COLLECTION_COLUMN_COOKBOOK_ID, cooking_id);
-            db.insert(COLLECTIONS_TABLE_NAME, null, values);
+            values.put(COOKBOOK_COLUMN_ISCOLLECTION, IS_COLLECTION_VALUE);
+            db.update(COOKBOOK_TABLE_NAME, values, "cooking_id=?", new String[] { cooking_id } );
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -79,7 +82,8 @@ public class STCollectionsDBHelper extends STDBHelper {
             db = getWritableDatabase();
             db.beginTransaction();
             ContentValues values = new ContentValues();
-            db.delete(COLLECTIONS_TABLE_NAME, COLLECTION_COLUMN_COOKBOOK_ID + "=?", new String[] { cooking_id });
+            values.put(COOKBOOK_COLUMN_ISCOLLECTION, IS_NOT_COLLECTION_VALUE);
+            db.update(COOKBOOK_TABLE_NAME, values, "cooking_id=?", new String[] { cooking_id } );
             db.setTransactionSuccessful();
         }
         catch (Exception e) {
@@ -98,9 +102,8 @@ public class STCollectionsDBHelper extends STDBHelper {
         ArrayList<STCookbookItem> list = null;
         try {
             db = getReadableDatabase();
-            String sql = "select a.* from " + STCookbookDBHelper.COOKBOOK_TABLE_NAME +
-                    " a, " + COLLECTIONS_TABLE_NAME +" b " +
-                    "where a.cooking_id=b.cooking_id";
+            String sql = "select * from " + STCookbookDBHelper.COOKBOOK_TABLE_NAME +
+                    " where cooking_is_collection=" + IS_COLLECTION_VALUE;
             Cursor cursor = db.rawQuery(sql, null);
             list = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -112,6 +115,9 @@ public class STCollectionsDBHelper extends STDBHelper {
                 item.url = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_URL));
                 item.intro = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_INTRO));
                 item.difficulty = cursor.getString(cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_DIFFICULTY));
+                item.isCollection =
+                        IS_COLLECTION_VALUE == cursor.getInt(
+                                cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_ISCOLLECTION));
                 list.add(item);
             }
         }

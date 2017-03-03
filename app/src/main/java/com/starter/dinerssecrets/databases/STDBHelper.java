@@ -25,7 +25,6 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String MATERIAL_TABLE_NAME = "ST_COOKBOOK_MATERIALS";
     public final static String STEPS_TABLE_NAME = "ST_COOKBOOK_STEPS";
     public final static String COOKBOOK_TABLE_NAME = "ST_COOKINGS";
-    public final static String COLLECTIONS_TABLE_NAME = "ST_COLLECTIONS";
     public final static String COMPLETE_PIC_TABLE_NAME = "ST_COOKBOOK_COMPLETES";
     public final static String MATERIALS_TABLE_NAME = "st_materials";
 
@@ -38,6 +37,7 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String COOKBOOK_COLUMN_TYPE = "cooking_type";
     public final static String COOKBOOK_COLUMN_DIFFICULTY = "cooking_difficulty";
     public final static String COOKBOOK_COLUMN_MATERIALS = "cooking_materials";
+    public final static String COOKBOOK_COLUMN_ISCOLLECTION = "cooking_is_collection";
 
     public final static String DETAIL_COLUMN_ID = "cooking_id";
     public final static String DETAIL_COLUMN_IMAGE = "cooking_img";
@@ -62,11 +62,6 @@ public class STDBHelper extends SQLiteOpenHelper {
     public final static String MATERIALS_COLUMN_TYPE = "material_type";
     public final static String MATERIALS_COLUMN_NAME = "material_name";
     public final static String MATERIALS_COLUMN_IMG = "material_image";
-
-    private final static String CREATE_COLLECTIONS_TABLE = "CREATE TABLE IF NOT EXISTS [ST_COLLECTIONS](\n" +
-            "[collection_order] INTEGER PRIMARY KEY AUTOINCREMENT, \n" +
-            "[cooking_id] VARCHAR(100) NOT NULL UNIQUE \n" +
-            ");";
 
     public final static String CREATE_DETAIL_TABLE = "create table if not exists ST_COOKBOOK_DETAIL (" +
             "[cooking_id] varchar(100) primary key," +
@@ -124,7 +119,6 @@ public class STDBHelper extends SQLiteOpenHelper {
         switch (newVersion) {
             case 1:
             case 2:
-                db.execSQL(CREATE_COLLECTIONS_TABLE);
                 db.execSQL(CREATE_DETAIL_TABLE);
                 db.execSQL(CREATE_MATERIALS_TABLE);
                 db.execSQL(CREATE_STEPS_TABLE);

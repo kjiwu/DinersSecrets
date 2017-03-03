@@ -9,6 +9,8 @@ import com.starter.dinerssecrets.models.STCookbookItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.starter.dinerssecrets.databases.STCollectionsDBHelper.IS_COLLECTION_VALUE;
+
 /**
  * Created by wulei on 2017/2/27.
  */
@@ -40,6 +42,8 @@ public class STCookbookDBHelper extends STDBHelper {
                     book.url = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_URL));
                     book.difficulty = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_DIFFICULTY));
                     book.intro = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_INTRO));
+                    book.isCollection = IS_COLLECTION_VALUE == cursor.getInt(
+                            cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_ISCOLLECTION));
                     items.add(book);
                 }
             }
@@ -84,6 +88,8 @@ public class STCookbookDBHelper extends STDBHelper {
                         book.url = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_URL));
                         book.difficulty = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_DIFFICULTY));
                         book.intro = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_INTRO));
+                        book.isCollection = IS_COLLECTION_VALUE == cursor.getInt(
+                                cursor.getColumnIndex(STCookbookDBHelper.COOKBOOK_COLUMN_ISCOLLECTION));
                         items.add(book);
                     }
                 }

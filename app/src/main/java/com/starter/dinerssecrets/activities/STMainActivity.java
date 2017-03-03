@@ -1,19 +1,18 @@
 package com.starter.dinerssecrets.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.fragments.STCollectionsFragment;
@@ -46,6 +45,7 @@ public class STMainActivity extends STBaseActivity {
         mRealContainer = (FrameLayout) findViewById(R.id.fragment_container);
         mToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         mToolbar.setTitle("");
+        mToolbar.setNavigationIcon(null);
         setSupportActionBar(mToolbar);
     }
 
@@ -78,7 +78,11 @@ public class STMainActivity extends STBaseActivity {
         String[] tabNames = getResources().getStringArray(R.array.tabs);
         for (int i = 0; i < tabNames.length; i++) {
             String name = tabNames[i];
-            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(name).setIndicator(name);
+            TabHost.TabSpec tabSpec = mTabHost.newTabSpec(name);
+            View view = LayoutInflater.from(this).inflate(R.layout.tabbar_item, null);
+            TextView tv = (TextView) view.findViewById(R.id.tabbar_item_text);
+            tv.setText(name);
+            tabSpec.setIndicator(view);
             mTabHost.addTab(tabSpec, fragments[i], null);
         }
     }

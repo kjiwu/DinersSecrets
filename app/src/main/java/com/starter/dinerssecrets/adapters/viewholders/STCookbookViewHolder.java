@@ -21,12 +21,14 @@ public class STCookbookViewHolder extends RecyclerView.ViewHolder {
         introView = (TextView) itemView.findViewById(R.id.ci_intro);
         difficultyView = (TextView) itemView.findViewById(R.id.ci_difficulty);
         container = (RelativeLayout) itemView.findViewById(R.id.item_container);
+        collectionIcon = (ImageView) itemView.findViewById(R.id.ci_collection_icon);
     }
 
     public ImageView header;
     public TextView titleView;
     public TextView introView;
     public TextView difficultyView;
+    public ImageView collectionIcon;
 
     public RelativeLayout container;
 }

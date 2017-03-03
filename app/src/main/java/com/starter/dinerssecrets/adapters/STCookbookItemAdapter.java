@@ -1,7 +1,6 @@
 package com.starter.dinerssecrets.adapters;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,13 +72,18 @@ public class STCookbookItemAdapter extends STRecyclerViewAdapter {
                         IMAGE_TYPE_THUMB,
                         viewHolder.header);
             } else {
-                viewHolder.header.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher));
+                //viewHolder.header.setImageBitmap(BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher));
             }
         }
 
         viewHolder.difficultyView.setText(item.difficulty);
         viewHolder.introView.setText(item.intro);
         viewHolder.titleView.setText(item.name);
+        if(item.isCollection) {
+            viewHolder.collectionIcon.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.collectionIcon.setVisibility(View.GONE);
+        }
     }
 
     @Override

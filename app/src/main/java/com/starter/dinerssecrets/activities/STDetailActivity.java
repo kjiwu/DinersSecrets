@@ -1,13 +1,13 @@
 package com.starter.dinerssecrets.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.adapters.STDetailAdapter;
 import com.starter.dinerssecrets.customs.EmptyRecyclerView;
+import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
 import com.starter.dinerssecrets.databases.STCookbookDetailDBHelper;
+import com.starter.dinerssecrets.fragments.STCookbooksFragment;
 import com.starter.dinerssecrets.models.STCookbookDetail;
 import com.starter.dinerssecrets.models.STCookbookItem;
 import com.starter.dinerssecrets.utilities.resolvers.STCookbookDetailResolver;
@@ -32,6 +34,9 @@ public class STDetailActivity extends STBaseActivity {
     private ProgressDialog mLoadingDialog;
     private View mEmptyView;
 
+    private String cooking_id;
+    private boolean mIsSaveCollection;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,44 @@ public class STDetailActivity extends STBaseActivity {
         initToolbar();
         loadDetail();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_toolbar_menu, menu);
+        if(mIsSaveCollection) {
+            menu.getItem(0).setTitle(R.string.detail_toolbar_uncollection_title);
+            menu.getItem(0).setIcon(R.mipmap.remove_fav);
+        } else {
+            menu.getItem(0).setTitle(R.string.detail_toolbar_collection_title);
+            menu.getItem(0).setIcon(R.mipmap.add_fav);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.detail_toolbar_collection: {
+                STCollectionsDBHelper dbHelper = new STCollectionsDBHelper(STDetailActivity.this);
+                mIsSaveCollection = !mIsSaveCollection;
+                if(mIsSaveCollection) {
+                    dbHelper.insertCollection(cooking_id);
+                    item.setTitle(R.string.detail_toolbar_uncollection_title);
+                    item.setIcon(R.mipmap.remove_fav);
+                } else {
+                    dbHelper.deleteCollection(cooking_id);
+                    item.setTitle(R.string.detail_toolbar_collection_title);
+                    item.setIcon(R.mipmap.add_fav);
+                }
+                Intent intent = new Intent();
+                intent.putExtra("IsSaveCollection", mIsSaveCollection);
+                setResult(STCookbooksFragment.COOKBBOKS_REQUEST_CODE, intent);
+            }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void initViews() {
         mEmptyView = findViewById(R.id.detail_empty_view);
@@ -69,6 +112,8 @@ public class STDetailActivity extends STBaseActivity {
         if(null != bundle) {
             final STCookbookItem book = (STCookbookItem) bundle.getSerializable("book");
             if(null != book) {
+                cooking_id = book.cooking_id;
+                mIsSaveCollection = book.isCollection;
                 STCookbookDetailDBHelper dbHelper = new STCookbookDetailDBHelper(this);
                 STCookbookDetail detail = dbHelper.getCookbookDetail(book.cooking_id);
                 if(null != detail) {

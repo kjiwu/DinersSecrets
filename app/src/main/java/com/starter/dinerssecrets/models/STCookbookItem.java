@@ -21,4 +21,5 @@ public class STCookbookItem implements Serializable{
 
     public String difficulty;
 
+    public boolean isCollection;
 }

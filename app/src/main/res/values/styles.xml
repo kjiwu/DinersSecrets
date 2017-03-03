@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackgroundDark</item>
+        <item name="android:textColor">@color/colorTextNormal</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
@@ -16,12 +18,13 @@
 
     <style name="ToolBarTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="titleTextColor">@android:color/white</item>
+        <item name="titleTextColor">@color/colorBackgroundDark</item>
+        <item name="navigationIcon">@mipmap/back</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
     <style name="ToolBarTitleStyle">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorBackgroundDark</item>
         <item name="android:textSize">@dimen/cookbook_item_title_size</item>
     </style>
 
@@ -31,7 +34,7 @@
     </style>
 
     <style name="SearchGroupTitleStyle">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/colorBackgroundDark</item>
         <item name="android:textSize">@dimen/search_group_title_size</item>
     </style>
 

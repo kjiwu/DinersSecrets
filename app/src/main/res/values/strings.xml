@@ -21,5 +21,6 @@
     <string name="detail_steps_title">做法步骤</string>
     <string name="detail_complete_title">成品图</string>
     <string name="detail_tips_title">烹饪小窍门</string>
-
+    <string name="detail_toolbar_collection_title">收藏</string>
+    <string name="detail_toolbar_uncollection_title">取消收藏</string>
 </resources>
