@@ -12,6 +12,7 @@ import android.transition.Fade;
 import android.transition.Slide;
 
 import com.starter.dinerssecrets.databases.STDBHelper;
+import com.starter.dinerssecrets.managers.NetwrokManager;
 import com.starter.dinerssecrets.receivers.NetworkChangedReceiver;
 
 /**
@@ -34,6 +35,7 @@ public class STBaseActivity extends AppCompatActivity implements NetworkChangedR
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mHaveNetwork = NetwrokManager.isNetworkAvailable(this);
     }
 
     @Override

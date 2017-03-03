@@ -3,11 +3,14 @@ package com.starter.dinerssecrets.adapters;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.starter.dinerssecrets.R;
+import com.starter.dinerssecrets.adapters.viewholders.STCookbookViewHolder;
+import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.managers.ImageDownloadManager;
 import com.starter.dinerssecrets.models.STCookbookItem;
 import com.starter.dinerssecrets.utilities.StringHelper;
@@ -46,6 +49,7 @@ public class STCookbookItemAdapter extends STRecyclerViewAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d(AppManager.APP_TAG, "adapter viewtype: " + viewType);
         View view = LayoutInflater.from(mContext).inflate(R.layout.st_cookbook_item, parent, false);
         return new STCookbookViewHolder(view);
     }

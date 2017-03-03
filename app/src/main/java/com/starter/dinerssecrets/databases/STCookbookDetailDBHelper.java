@@ -57,6 +57,7 @@ public class STCookbookDetailDBHelper extends STDBHelper {
             if (cursor.moveToFirst()) {
                 detail.cooking_id = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_ID));
                 detail.difficulty = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_DIFFICULTY));
+                detail.intro = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_INTRO));
                 detail.title = cursor.getString(cursor.getColumnIndex(COOKBOOK_COLUMN_NAME));
                 detail.time = cursor.getString(cursor.getColumnIndex(DETAIL_COLUMN_TIME));
                 detail.image = cursor.getString(cursor.getColumnIndex(DETAIL_COLUMN_IMAGE));
@@ -76,7 +77,7 @@ public class STCookbookDetailDBHelper extends STDBHelper {
                 }
             }
 
-            sql = "select * from ST_COOKBOOK_STEPS where cooking_id='" + cooking_id + "'";
+            sql = "select * from ST_COOKBOOK_STEPS where cooking_id='" + cooking_id + "' order by step_order";
             cursor = db.rawQuery(sql, null);
             if(cursor.getCount() > 0) {
                 detail.steps = new ArrayList<>();

@@ -69,7 +69,7 @@ public class ImageDownloadManager {
                     }
                     File dir = new File(path);
                     if(!dir.exists()) {
-                        dir.mkdir();
+                        dir.mkdirs();
                     }
                     Bitmap bitmap = BitmapFactory.decodeStream(in, null, options);
 

@@ -11,7 +11,7 @@
 
     </com.starter.dinerssecrets.customs.EmptyRecyclerView>
 
-    <include layout="@layout/view_recyclerview_empty"
+    <include layout="@layout/collection_recyclerview_empty"
              android:id="@+id/emptyView"/>
 
 </LinearLayout>

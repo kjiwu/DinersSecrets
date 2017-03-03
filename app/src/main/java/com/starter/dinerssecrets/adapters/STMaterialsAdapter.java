@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.starter.dinerssecrets.R;
+import com.starter.dinerssecrets.adapters.viewholders.STMaterialContentViewHolder;
+import com.starter.dinerssecrets.adapters.viewholders.STMaterialFooterViewHolder;
+import com.starter.dinerssecrets.adapters.viewholders.STMaterialHeaderViewHolder;
 import com.starter.dinerssecrets.databases.STMaterialsDBHelper;
 import com.starter.dinerssecrets.models.STMaterialEntity;
 import com.starter.dinerssecrets.models.STMaterialsItem;

@@ -12,6 +12,7 @@ public class STCookbookDetail {
     public String image;
     public String time;
     public String difficulty;
+    public String intro;
     public List<STCookbookMaterial> materials;
     public List<STCookbookStep> steps;
     public List<String> tips;

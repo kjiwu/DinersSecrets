@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.starter.dinerssecrets.R;
+import com.starter.dinerssecrets.adapters.viewholders.STCookbookViewHolder;
 import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
 import com.starter.dinerssecrets.managers.AppManager;
 import com.starter.dinerssecrets.managers.ImageDownloadManager;

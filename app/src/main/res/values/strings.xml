@@ -1,10 +1,24 @@
 <resources>
+    <!-- 通用字符串定义 -->
     <string name="app_name">食客秘籍</string>
+    <string name="network_error_tips">客官你的网络有问题呀，检查下吧~~</string>
 
+    <!-- 主页面字符串定义 -->
     <string name="cookbook_item_difficulty_title">烹饪难度:</string>
-
     <string name="main_toolbar_search_title">搜索</string>
-    <string name="search_edit_hint">选择或输入食材</string>
 
-    <string name="search_result_empty_tip">没有搜索到相关的菜谱，\n修改修改你的食材吧~~</string>
+    <!-- 搜索页面字符串定义 -->
+    <string name="search_edit_hint">选择或输入食材</string>
+    <string name="search_result_empty_tip">没有搜索到相关的菜谱，\n客官修改修改你的食材吧~~</string>
+
+    <!-- 详情页面字符串定义 -->
+    <string name="detail_loading_tips">正在加载菜谱，客官请稍等~~</string>
+    <string name="detail_empty_tips">客官没有加载出来你要的菜谱呀，\n这可咋办呀~~</string>
+    <string name="detail_diff_title">烹饪难度:</string>
+    <string name="detail_time_title">烹饪时间:</string>
+    <string name="detail_main_material_title">主料</string>
+    <string name="detail_assist_material_title">调料</string>
+    <string name="detail_steps_title">做法步骤</string>
+    <string name="detail_tips_title">烹饪小窍门</string>
+
 </resources>

@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.starter.dinerssecrets.utilities.DipPixelHelper;
+
 import java.util.List;
 
 /**
@@ -61,7 +63,7 @@ public class SlideView extends View {
             // 设置字体格式
             paint.setAntiAlias(true);
             //使用dipToPixels()方法动态地将dp转换成px以适应不同的屏幕
-            paint.setTextSize(dipToPixels(getContext(), 12));
+            paint.setTextSize(DipPixelHelper.dipToPixels(getContext(), 12));
             // 要画的字母的x,y坐标
             float posX = width / 2 - paint.measureText(letters.get(i)) / 2;
             float posY = i * singleHeight + singleHeight;
@@ -127,13 +129,6 @@ public class SlideView extends View {
                 break;
         }
         return true;
-    }
-
-    private int dipToPixels(Context context, int dip) {
-        final float SCALE = context.getResources().getDisplayMetrics().density;
-        float valueDips = dip;
-        int valuePixels = (int)(valueDips * SCALE + 0.5f);
-        return valuePixels;
     }
 
     /**
