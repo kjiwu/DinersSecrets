@@ -184,11 +184,16 @@ public class STCookbookDetailResolver {
             }
         }
         else {
-            Elements lis = htmlDoc.select("ol.wz-list li");
+            Elements lis = htmlDoc.select("ol.wz_list li");
             if(lis.size() > 0) {
+                steps = new ArrayList<>();
                 for (Element li : lis) {
                     STCookbookStep step = new STCookbookStep();
-                    step.order = li.child(0).ownText();
+                    String order = li.child(0).ownText();
+                    if(order.charAt(order.length() - 1) == '.') {
+                        order = order.substring(0, order.length() - 1);
+                    }
+                    step.order = order;
                     step.step = li.ownText();
                     step.image = null;
                     steps.add(step);
@@ -217,7 +222,7 @@ public class STCookbookDetailResolver {
     }
 
     private List<String> getCompletePic(Document htmlDoc) {
-        Elements e_imgs = htmlDoc.select("div.wz-pic p img");
+        Elements e_imgs = htmlDoc.select("div.wz_pic p img");
         List<String> result = null;
         if(e_imgs.size() > 0) {
             result = new ArrayList<>();

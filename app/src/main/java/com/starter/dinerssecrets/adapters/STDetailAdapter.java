@@ -3,12 +3,14 @@ package com.starter.dinerssecrets.adapters;
 import android.content.Context;
 import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.starter.dinerssecrets.R;
@@ -22,6 +24,7 @@ import com.starter.dinerssecrets.models.STCookbookDetail;
 import com.starter.dinerssecrets.models.STCookbookMaterial;
 import com.starter.dinerssecrets.models.STCookbookStep;
 import com.starter.dinerssecrets.models.STMaterialsItem;
+import com.starter.dinerssecrets.utilities.DipPixelHelper;
 import com.starter.dinerssecrets.utilities.StringHelper;
 
 import java.util.ArrayList;
@@ -285,20 +288,49 @@ public class STDetailAdapter extends RecyclerView.Adapter {
 
     private void loadCompleteTitle(STDetailHeaderViewHolder holder) {
         if (null != holder) {
-            holder.container.setVisibility(View.GONE);
+            if(null == mDetail.complete_pic || mDetail.complete_pic.size() == 0) {
+                holder.container.setVisibility(View.GONE);
+            } else {
+                holder.container.setVisibility(View.VISIBLE);
+                holder.headerImage.setVisibility(View.GONE);
+                holder.headerTitle.setVisibility(View.VISIBLE);
+                showCommonTilte(holder, R.string.detail_complete_title, false);
+            }
+
         }
     }
 
     private void loadCompleteImages(STDetailContentViewHolder holder) {
-        if(null != holder) {
-            holder.contentList.setVisibility(View.GONE);
-            holder.contentView.setVisibility(View.GONE);
+        holder.contentList.setVisibility(View.VISIBLE);
+        holder.contentView.setVisibility(View.GONE);
+        if(null != holder && null != mDetail.complete_pic) {
+            holder.contentList.removeAllViews();
+
+            for(String url : mDetail.complete_pic) {
+                ImageView iv = new ImageView(mContext);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        DipPixelHelper.dipToPixels(mContext, 128),
+                        DipPixelHelper.dipToPixels(mContext, 72));
+                
+                iv.setLayoutParams(lp);
+                if (NetwrokManager.isNetworkAvailable(mContext)) {
+                    if (null != iv) {
+                        mImageDownloadManager.downloadImage(StringHelper.getImageName(url),
+                                url,
+                                mDetail.cooking_id,
+                                ImageDownloadManager.IMAGE_TYPE_ORIGIN,
+                                iv);
+                    }
+                }
+                holder.contentList.addView(iv);
+            }
         }
     }
 
     private void loadTips(STDetailContentViewHolder holder) {
         if(null != holder && null != mDetail.tips) {
             holder.contentList.setVisibility(View.VISIBLE);
+            holder.contentView.setVisibility(View.GONE);
             holder.contentList.removeAllViews();
             for (String tip : mDetail.tips) {
                 View view = LayoutInflater.from(mContext).inflate(R.layout.detail_step_item, null);

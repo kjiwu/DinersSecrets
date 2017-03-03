@@ -19,6 +19,7 @@
     <string name="detail_main_material_title">主料</string>
     <string name="detail_assist_material_title">调料</string>
     <string name="detail_steps_title">做法步骤</string>
+    <string name="detail_complete_title">成品图</string>
     <string name="detail_tips_title">烹饪小窍门</string>
 
 </resources>
