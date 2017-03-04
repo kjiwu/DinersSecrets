@@ -16,6 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="@dimen/cookbook_item_small_margin"
+        android:src="@mipmap/default_header"
         android:transitionName="shareHeader"/>
 
     <LinearLayout

@@ -23,4 +23,11 @@
     <string name="detail_tips_title">烹饪小窍门</string>
     <string name="detail_toolbar_collection_title">收藏</string>
     <string name="detail_toolbar_uncollection_title">取消收藏</string>
+
+    <!-- 关于页面字符串定义 -->
+    <string name="about_linsence_title">本菜谱软件所有菜谱资源均来自中国菜谱网</string>
+    <string name="about_clear_cache_title">当前共缓存了数据:</string>
+    <string name="about_button_clear_title">清空缓存</string>
+    <string name="about_clear_cache_dialog_content">客官我要开始清理缓存了，请稍等片刻~~</string>
+
 </resources>

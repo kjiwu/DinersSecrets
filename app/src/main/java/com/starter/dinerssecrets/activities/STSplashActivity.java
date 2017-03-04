@@ -3,15 +3,18 @@ package com.starter.dinerssecrets.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.starter.dinerssecrets.R;
-import com.starter.dinerssecrets.databases.STCollectionsDBHelper;
 import com.starter.dinerssecrets.databases.STDBHelper;
-import com.starter.dinerssecrets.utilities.resolvers.STCookbookDetailResolver;
+import com.starter.dinerssecrets.managers.AppManager;
+import com.starter.dinerssecrets.managers.YouMiADManager;
+
+import net.youmi.android.AdManager;
+import net.youmi.android.normal.spot.SpotManager;
 
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,10 +26,22 @@ public class STSplashActivity extends STBaseActivity {
     Observable mObservable = null;
     Disposable mDisposable = null;
 
+    private LinearLayout mLinearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st_splash);
+
+        mLinearLayout = (LinearLayout) findViewById(R.id.activity_splash);
+
+        AdManager.getInstance(this).init(
+                AppManager.YOUMI_PUBLIC_ID,
+                AppManager.YOUMI_APP_KEY,
+                true,
+                true);
+
+        YouMiADManager.splashADView(this, mLinearLayout);
 
         try {
             STDBHelper.initializeLocalDatabase(this);
@@ -34,17 +49,12 @@ public class STSplashActivity extends STBaseActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        mObservable = Observable.empty().delay(4, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        Intent intent = new Intent(STSplashActivity.this, STMainActivity.class);
-                        stStartActivity(intent);
-                        STSplashActivity.this.finish();
-                    }
-                });
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SpotManager.getInstance(this).onPause();
     }
 
     @Override
@@ -79,8 +89,29 @@ public class STSplashActivity extends STBaseActivity {
     protected void onStop() {
         super.onStop();
         if(null != mDisposable) {
-            mDisposable.dispose();;
+            mDisposable.dispose();
             mDisposable = null;
         }
+        SpotManager.getInstance(this).onStop();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpotManager.getInstance(this).onDestroy();
+    }
+
+    private void gotoMainActivity() {
+        mObservable = Observable.empty().delay(5, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        Intent intent = new Intent(STSplashActivity.this, STMainActivity.class);
+                        stStartActivity(intent);
+                        STSplashActivity.this.finish();
+                    }
+                });
+    }
+
 }

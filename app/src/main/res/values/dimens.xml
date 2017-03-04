@@ -1,8 +1,8 @@
 <resources>
-    <dimen name="cookbook_item_title_size">18sp</dimen>
-    <dimen name="search_group_title_size">16sp</dimen>
-
+    <dimen name="item_title_size">18sp</dimen>
+    <dimen name="group_title_size">16sp</dimen>
     <dimen name="tabbar_default_height">48dp</dimen>
+    <dimen name="item_default_height">48dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">12dp</dimen>

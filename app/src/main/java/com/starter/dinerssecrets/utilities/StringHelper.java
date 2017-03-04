@@ -1,5 +1,10 @@
 package com.starter.dinerssecrets.utilities;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.util.Log;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,5 +57,23 @@ public class StringHelper {
             return null;
         }
         return Arrays.asList(tips.split("|"));
+    }
+
+    public static String getAppVersionName(Context context) {
+        String versionName = "";
+        int versioncode = 0;
+        try {
+            // ---get the package info---
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionName;
+            versioncode = pi.versionCode;
+            if (versionName == null || versionName.length() <= 0) {
+                return "";
+            }
+        } catch (Exception e) {
+            Log.e("VersionInfo", "Exception", e);
+        }
+        return versionName;
     }
 }

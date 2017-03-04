@@ -20,6 +20,8 @@ import com.starter.dinerssecrets.fragments.STCookbooksFragment;
 import com.starter.dinerssecrets.fragments.STMeFragment;
 import com.starter.dinerssecrets.managers.AppManager;
 
+import net.youmi.android.normal.spot.SpotManager;
+
 /**
  * Created by wulei on 2017/2/27.
  */
@@ -85,5 +87,11 @@ public class STMainActivity extends STBaseActivity {
             tabSpec.setIndicator(view);
             mTabHost.addTab(tabSpec, fragments[i], null);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SpotManager.getInstance(this).onAppExit();
     }
 }

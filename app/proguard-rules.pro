@@ -16,6 +16,10 @@
    public *;
 }
 
+-keep public class android.support.**{
+    *;
+}
+
 #指定代码的压缩级别
 -optimizationpasses 5
 

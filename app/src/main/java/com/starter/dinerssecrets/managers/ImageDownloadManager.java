@@ -142,11 +142,11 @@ public class ImageDownloadManager {
         return result;
     }
 
-    private boolean downloadImageFromLocal(String imageName, int type, ImageView imageView) {
+    private boolean downloadImageFromLocal(String imageName, String cooking_id, int type, ImageView imageView) {
         boolean result = false;
         if(null != mContext) {
             try {
-                String path = mContext.getFilesDir() + "/" + imageName;
+                String path = mContext.getFilesDir() + IMAGE_DIR + "/" + cooking_id + "/" + imageName;
                 if(type == IMAGE_TYPE_THUMB) {
                     path = mContext.getFilesDir() + "/thumbs/" + imageName;
                 }
@@ -173,7 +173,7 @@ public class ImageDownloadManager {
 
     public void downloadImage(String imageName, String url, String cooking_id, int type, ImageView imageView) {
         if(!downloadImageFromAssets(imageName, type, imageView)) {
-            if(!downloadImageFromLocal(imageName, type, imageView)) {
+            if(!downloadImageFromLocal(imageName, cooking_id, type, imageView)) {
                 downloadImageFromUrl(imageName, url, cooking_id, type, imageView);
             }
         }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/cache_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_default_height"
+                android:background="@drawable/about_item_press_selecor"
+                android:gravity="center_vertical"
+                android:padding="@dimen/default_margin">
+
+    <TextView
+        android:id="@+id/about_clear_cache_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/about_clear_cache_title"/>
+
+    <TextView
+        android:id="@+id/textview_about_cache_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_toRightOf="@id/about_clear_cache_title"
+        android:text="2.0M"/>
+
+    <TextView
+        android:id="@+id/textview_clear_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="@string/about_button_clear_title"/>
+
+</RelativeLayout>

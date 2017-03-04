@@ -25,17 +25,17 @@
 
     <style name="ToolBarTitleStyle">
         <item name="android:textColor">@color/colorBackgroundDark</item>
-        <item name="android:textSize">@dimen/cookbook_item_title_size</item>
+        <item name="android:textSize">@dimen/item_title_size</item>
     </style>
 
     <style name="CookbookItemTitleStyle" parent="Theme.AppCompat.Light">
-        <item name="android:textSize">@dimen/cookbook_item_title_size</item>
+        <item name="android:textSize">@dimen/item_title_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="SearchGroupTitleStyle">
         <item name="android:textColor">@color/colorBackgroundDark</item>
-        <item name="android:textSize">@dimen/search_group_title_size</item>
+        <item name="android:textSize">@dimen/group_title_size</item>
     </style>
 
 </resources>
