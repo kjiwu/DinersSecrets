@@ -31,11 +31,22 @@
     </LinearLayout>
 
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:id="@+id/textview_licensce"
         android:text="@string/about_linsence_title"
         android:textAlignment="center"/>
+
+    <LinearLayout
+        android:id="@+id/ll_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_above="@id/textview_licensce">
+    </LinearLayout>
 
 </RelativeLayout>

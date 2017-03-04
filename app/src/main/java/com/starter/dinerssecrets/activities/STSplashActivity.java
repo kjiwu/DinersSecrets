@@ -31,15 +31,15 @@ public class STSplashActivity extends STBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_st_splash);
-
-        mLinearLayout = (LinearLayout) findViewById(R.id.activity_splash);
-
         AdManager.getInstance(this).init(
                 AppManager.YOUMI_PUBLIC_ID,
                 AppManager.YOUMI_APP_KEY,
-                true,
+                false,
                 true);
+
+        setContentView(R.layout.activity_st_splash);
+
+        mLinearLayout = (LinearLayout) findViewById(R.id.ad_container);
 
         YouMiADManager.splashADView(this, mLinearLayout);
 

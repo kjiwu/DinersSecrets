@@ -12,5 +12,12 @@
     android:orientation="vertical"
     tools:context="com.starter.dinerssecrets.SplashActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ad_container">
+
+    </LinearLayout>
+
 
 </LinearLayout>

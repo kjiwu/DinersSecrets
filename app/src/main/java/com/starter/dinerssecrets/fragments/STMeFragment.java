@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import com.starter.dinerssecrets.managers.CacheManager;
 import com.starter.dinerssecrets.managers.YouMiADManager;
 import com.starter.dinerssecrets.utilities.StringHelper;
 
+import net.youmi.android.normal.banner.BannerManager;
+import net.youmi.android.normal.banner.BannerViewListener;
 import net.youmi.android.normal.spot.SpotManager;
 
 import io.reactivex.Observable;
@@ -37,6 +40,8 @@ public class STMeFragment extends STBaseFragment {
     private RelativeLayout mClearItemLayout;
     private TextView mCacheSizeTextView;
 
+    private LinearLayout bannerLayout;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +51,26 @@ public class STMeFragment extends STBaseFragment {
         mVersionTextView.setText(StringHelper.getAppVersionName(getActivity()));
 
        initCacheSize(view);
+
+        bannerLayout = (LinearLayout) view.findViewById(R.id.ll_banner);
+        View bannerView = BannerManager.getInstance(getActivity())
+                .getBannerView(getActivity(), new BannerViewListener() {
+                    @Override
+                    public void onRequestSuccess() {
+
+                    }
+
+                    @Override
+                    public void onSwitchBanner() {
+
+                    }
+
+                    @Override
+                    public void onRequestFailed() {
+
+                    }
+                });
+        bannerLayout.addView(bannerView);
 
         YouMiADManager.insertADView(getActivity());
 
@@ -117,5 +142,6 @@ public class STMeFragment extends STBaseFragment {
     public void onDestroy() {
         super.onDestroy();
         SpotManager.getInstance(getActivity()).onDestroy();
+        BannerManager.getInstance(getActivity()).onDestroy();
     }
 }
