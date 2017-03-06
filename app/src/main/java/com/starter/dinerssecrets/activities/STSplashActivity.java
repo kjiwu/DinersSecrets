@@ -7,11 +7,6 @@ import android.widget.LinearLayout;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.databases.STDBHelper;
-import com.starter.dinerssecrets.managers.AppManager;
-import com.starter.dinerssecrets.managers.YouMiADManager;
-
-import net.youmi.android.AdManager;
-import net.youmi.android.normal.spot.SpotManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,17 +26,9 @@ public class STSplashActivity extends STBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AdManager.getInstance(this).init(
-                AppManager.YOUMI_PUBLIC_ID,
-                AppManager.YOUMI_APP_KEY,
-                false,
-                true);
-
         setContentView(R.layout.activity_st_splash);
 
         mLinearLayout = (LinearLayout) findViewById(R.id.ad_container);
-
-        YouMiADManager.splashADView(this, mLinearLayout);
 
         try {
             STDBHelper.initializeLocalDatabase(this);
@@ -49,12 +36,13 @@ public class STSplashActivity extends STBaseActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        gotoMainActivity();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        SpotManager.getInstance(this).onPause();
     }
 
     @Override
@@ -92,13 +80,11 @@ public class STSplashActivity extends STBaseActivity {
             mDisposable.dispose();
             mDisposable = null;
         }
-        SpotManager.getInstance(this).onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpotManager.getInstance(this).onDestroy();
     }
 
     private void gotoMainActivity() {

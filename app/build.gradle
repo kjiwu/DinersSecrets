@@ -3,6 +3,10 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
+            keyAlias ALIAS_NAME
+            keyPassword ALIAS_PASS
+            storeFile file(KEY_PATH)
+            storePassword KEY_PASS
         }
     }
     compileSdkVersion 25
@@ -21,7 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             renderscriptOptimLevel 5
-            proguardFile '/Users/wulei/Desktop/食客秘籍/DinersSecrets/app/proguard-rules.pro'
+            proguardFile PROGUARD_PATH
         }
     }
     //指定打包后应用名称

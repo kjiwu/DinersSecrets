@@ -12,12 +12,7 @@ import android.widget.TextView;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.managers.CacheManager;
-import com.starter.dinerssecrets.managers.YouMiADManager;
 import com.starter.dinerssecrets.utilities.StringHelper;
-
-import net.youmi.android.normal.banner.BannerManager;
-import net.youmi.android.normal.banner.BannerViewListener;
-import net.youmi.android.normal.spot.SpotManager;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -51,28 +46,6 @@ public class STMeFragment extends STBaseFragment {
         mVersionTextView.setText(StringHelper.getAppVersionName(getActivity()));
 
        initCacheSize(view);
-
-        bannerLayout = (LinearLayout) view.findViewById(R.id.ll_banner);
-        View bannerView = BannerManager.getInstance(getActivity())
-                .getBannerView(getActivity(), new BannerViewListener() {
-                    @Override
-                    public void onRequestSuccess() {
-
-                    }
-
-                    @Override
-                    public void onSwitchBanner() {
-
-                    }
-
-                    @Override
-                    public void onRequestFailed() {
-
-                    }
-                });
-        bannerLayout.addView(bannerView);
-
-        YouMiADManager.insertADView(getActivity());
 
         mClearItemLayout = (RelativeLayout) view.findViewById(R.id.cache_item_container);
         mClearItemLayout.setOnClickListener(new View.OnClickListener() {
@@ -129,19 +102,15 @@ public class STMeFragment extends STBaseFragment {
     @Override
     public void onPause() {
         super.onPause();
-        SpotManager.getInstance(getActivity()).onPause();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        SpotManager.getInstance(getActivity()).onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SpotManager.getInstance(getActivity()).onDestroy();
-        BannerManager.getInstance(getActivity()).onDestroy();
     }
 }
