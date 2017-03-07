@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.databases.STDBHelper;
+import com.starter.dinerssecrets.managers.YouMiManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +29,10 @@ public class STSplashActivity extends STBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st_splash);
 
+        YouMiManager.getInstance().initAD(this);
+
         mLinearLayout = (LinearLayout) findViewById(R.id.ad_container);
+
 
         try {
             STDBHelper.initializeLocalDatabase(this);

@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.managers.CacheManager;
+import com.starter.dinerssecrets.managers.YouMiManager;
 import com.starter.dinerssecrets.utilities.StringHelper;
+
+import net.youmi.android.normal.banner.BannerViewListener;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -45,7 +48,8 @@ public class STMeFragment extends STBaseFragment {
         mVersionTextView = (TextView) view.findViewById(R.id.textview_version);
         mVersionTextView.setText(StringHelper.getAppVersionName(getActivity()));
 
-       initCacheSize(view);
+        initCacheSize(view);
+        showBannerAD(view);
 
         mClearItemLayout = (RelativeLayout) view.findViewById(R.id.cache_item_container);
         mClearItemLayout.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +89,7 @@ public class STMeFragment extends STBaseFragment {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                 String size = CacheManager.getCacheSize(getActivity());
+                String size = CacheManager.getCacheSize(getActivity());
                 e.onNext(size);
             }
         })
@@ -97,6 +101,26 @@ public class STMeFragment extends STBaseFragment {
                         mCacheSizeTextView.setText(o);
                     }
                 }).subscribe();
+    }
+
+    private void showBannerAD(View view) {
+        bannerLayout = (LinearLayout) view.findViewById(R.id.ll_banner);
+        bannerLayout.addView(YouMiManager.getInstance().getBarAD(view.getContext(), new BannerViewListener() {
+            @Override
+            public void onRequestSuccess() {
+
+            }
+
+            @Override
+            public void onSwitchBanner() {
+
+            }
+
+            @Override
+            public void onRequestFailed() {
+
+            }
+        }));
     }
 
     @Override
