@@ -2,10 +2,14 @@ package com.starter.dinerssecrets.managers;
 
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
 
 import net.youmi.android.AdManager;
 import net.youmi.android.normal.banner.BannerManager;
 import net.youmi.android.normal.banner.BannerViewListener;
+import net.youmi.android.normal.spot.SplashViewSettings;
+import net.youmi.android.normal.spot.SpotListener;
+import net.youmi.android.normal.spot.SpotManager;
 
 /**
  * Created by wulei on 2017/3/7.
@@ -45,5 +49,18 @@ public class YouMiManager {
                     .init(APPID, APPSECRET, isTestModel, isEnableYoumiLog);
             mIsInit = true;
         }
+    }
+
+    public void getSplashAD(Context context, Class target,
+                            ViewGroup container,
+                            SpotListener listener) {
+        SplashViewSettings settings = new SplashViewSettings();
+        settings.setAutoJumpToTargetWhenShowFailed(true);
+        settings.setTargetClass(target);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        settings.setSplashViewContainerAndLayoutParams(container, lp);
+        SpotManager.getInstance(context).showSplash(context,
+                settings, listener);
     }
 }
