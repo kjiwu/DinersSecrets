@@ -18,6 +18,9 @@ import io.reactivex.functions.Action;
 
 public class STSplashActivity extends STBaseActivity {
 
+    private final static int DELAY_TIME = 3;
+
+
     Observable mObservable = null;
     Disposable mDisposable = null;
 
@@ -88,7 +91,7 @@ public class STSplashActivity extends STBaseActivity {
     }
 
     private void gotoMainActivity() {
-        mObservable = Observable.empty().delay(5, TimeUnit.SECONDS)
+        mObservable = Observable.empty().delay(DELAY_TIME, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnComplete(new Action() {
                     @Override
