@@ -7,6 +7,10 @@ import android.widget.LinearLayout;
 
 import com.starter.dinerssecrets.R;
 import com.starter.dinerssecrets.databases.STDBHelper;
+import com.starter.dinerssecrets.managers.YouMiManager;
+
+import net.youmi.android.normal.spot.SpotListener;
+import net.youmi.android.normal.spot.SpotManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +35,32 @@ public class STSplashActivity extends STBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st_splash);
 
+        YouMiManager.getInstance().initAD(this);
+
         mLinearLayout = (LinearLayout) findViewById(R.id.ad_container);
+        YouMiManager.getInstance().getSplashAD(this, STMainActivity.class,
+                mLinearLayout, new SpotListener() {
+                    @Override
+                    public void onShowSuccess() {
+
+                    }
+
+                    @Override
+                    public void onShowFailed(int i) {
+
+                    }
+
+                    @Override
+                    public void onSpotClosed() {
+
+                    }
+
+                    @Override
+                    public void onSpotClicked(boolean b) {
+
+                    }
+                });
+
 
         try {
             STDBHelper.initializeLocalDatabase(this);
@@ -40,12 +69,13 @@ public class STSplashActivity extends STBaseActivity {
             e.printStackTrace();
         }
 
-        gotoMainActivity();
+        //gotoMainActivity();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        SpotManager.getInstance(this).onPause();
     }
 
     @Override
@@ -79,6 +109,7 @@ public class STSplashActivity extends STBaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        SpotManager.getInstance(this).onStop();
         if(null != mDisposable) {
             mDisposable.dispose();
             mDisposable = null;
@@ -88,6 +119,7 @@ public class STSplashActivity extends STBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        SpotManager.getInstance(this).onDestroy();
     }
 
     private void gotoMainActivity() {
