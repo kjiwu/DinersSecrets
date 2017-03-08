@@ -2,16 +2,12 @@ package com.starter.dinerssecrets.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Explode;
-import android.transition.Fade;
-import android.transition.Slide;
 
-import com.starter.dinerssecrets.databases.STDBHelper;
 import com.starter.dinerssecrets.managers.NetwrokManager;
 import com.starter.dinerssecrets.receivers.NetworkChangedReceiver;
 
@@ -50,6 +46,10 @@ public class STBaseActivity extends AppCompatActivity implements NetworkChangedR
     }
 
     public void stStartActivity(Intent intent) {
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(STBaseActivity.this).toBundle());
+        if(VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(STBaseActivity.this).toBundle());
+        } else {
+            startActivity(intent);
+        }
     }
 }
