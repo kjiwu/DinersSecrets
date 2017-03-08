@@ -20,12 +20,11 @@ public class YouMiManager {
     public final static String APPSECRET = "a07a5eb05ac66883";
 
     public boolean isTestModel = false;
-    public boolean isEnableYoumiLog = true;
+    public boolean isEnableYoumiLog = false;
 
     private boolean mIsInit = false;
 
     private YouMiManager() {
-
     }
 
     private static class YouMiManagerHolder {
@@ -45,8 +44,9 @@ public class YouMiManager {
 
     public void initAD(Context context) {
         if(!mIsInit) {
+            boolean isDebug = AppManager.isApkInDebug(context);
             AdManager.getInstance(context)
-                    .init(APPID, APPSECRET, isTestModel, isEnableYoumiLog);
+                    .init(APPID, APPSECRET, isDebug, isDebug);
             mIsInit = true;
         }
     }
