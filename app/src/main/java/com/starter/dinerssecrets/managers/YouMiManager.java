@@ -19,7 +19,7 @@ public class YouMiManager {
     public final static String APPID = "2770ea98cf2883df";
     public final static String APPSECRET = "a07a5eb05ac66883";
 
-    public boolean isTestModel = true;
+    public boolean isTestModel = false;
     public boolean isEnableYoumiLog = true;
 
     private boolean mIsInit = false;
