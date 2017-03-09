@@ -58,5 +58,4 @@ dependencies {
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
-    compile files('libs/YoumiSdk_v7.0.1_2017-01-06.jar')
 }
