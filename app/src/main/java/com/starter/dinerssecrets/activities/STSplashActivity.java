@@ -18,7 +18,9 @@ import io.reactivex.functions.Action;
 
 public class STSplashActivity extends STBaseActivity {
 
-    private final static int DELAY_TIME = 3;
+    private final static int DELAY_TIME = 1;
+
+    private final static int READ_PHONE_STATE_REQUESTCODE = 0;
 
 
     Observable mObservable = null;
@@ -102,5 +104,4 @@ public class STSplashActivity extends STBaseActivity {
                     }
                 });
     }
-
 }

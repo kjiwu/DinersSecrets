@@ -45,7 +45,7 @@ public class STMeFragment extends STBaseFragment {
         mVersionTextView = (TextView) view.findViewById(R.id.textview_version);
         mVersionTextView.setText(StringHelper.getAppVersionName(getActivity()));
 
-       initCacheSize(view);
+        initCacheSize(view);
 
         mClearItemLayout = (RelativeLayout) view.findViewById(R.id.cache_item_container);
         mClearItemLayout.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class STMeFragment extends STBaseFragment {
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
-                 String size = CacheManager.getCacheSize(getActivity());
+                String size = CacheManager.getCacheSize(getActivity());
                 e.onNext(size);
             }
         })

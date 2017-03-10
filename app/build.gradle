@@ -31,6 +31,7 @@ android {
             minifyEnabled true
         }
     }
+
     //指定打包后应用名称
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
