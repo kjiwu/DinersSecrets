@@ -3,6 +3,7 @@ package com.starter.dinerssecrets.activities;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -50,6 +51,10 @@ public class STBaseActivity extends AppCompatActivity implements NetworkChangedR
     }
 
     public void stStartActivity(Intent intent) {
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(STBaseActivity.this).toBundle());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+        } else {
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(STBaseActivity.this).toBundle());
+        }
     }
 }
