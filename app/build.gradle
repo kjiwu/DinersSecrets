@@ -21,14 +21,14 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             renderscriptOptimLevel 5
             proguardFile 'Unrecognized value'
         }
         debug {
-            minifyEnabled true
+            minifyEnabled false
         }
     }
 
