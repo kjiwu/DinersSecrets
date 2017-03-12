@@ -26,14 +26,10 @@ public class STSplashActivity extends STBaseActivity {
     Observable mObservable = null;
     Disposable mDisposable = null;
 
-    private LinearLayout mLinearLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_st_splash);
-
-        mLinearLayout = (LinearLayout) findViewById(R.id.ad_container);
 
         try {
             STDBHelper.initializeLocalDatabase(this);

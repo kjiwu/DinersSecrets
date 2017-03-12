@@ -1,6 +1,5 @@
 package com.starter.dinerssecrets.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.starter.dinerssecrets.R;
@@ -19,7 +17,6 @@ import com.starter.dinerssecrets.adapters.STCookbookItemAdapter;
 import com.starter.dinerssecrets.adapters.STMaterialsAdapter;
 import com.starter.dinerssecrets.customs.EmptyRecyclerView;
 import com.starter.dinerssecrets.databases.STCookbookDBHelper;
-import com.starter.dinerssecrets.databases.STMaterialsDBHelper;
 import com.starter.dinerssecrets.models.STCookbookItem;
 import com.starter.dinerssecrets.utilities.InputHelper;
 
