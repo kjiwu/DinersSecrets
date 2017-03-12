@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * Created by wulei on 2017/2/27.
  */
-public class STCookbookItem implements Serializable{
+public class STCookbookItem implements Serializable {
+    private static final long serialVersionUID = 518872429669715930L;
 
     public String cooking_id;
 
